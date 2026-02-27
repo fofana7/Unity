@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Unity</string>
+    <string name="login_title">Connexion</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Mot de passe</string>
+    <string name="login_button">Se connecter</string>
+    <string name="forgot_password">Mot de passe oublié ?</string>
+    <string name="no_account">Pas encore de compte ? S\'inscrire</string>
+    <string name="error_empty_fields">Veuillez remplir tous les champs</string>
+    <string name="login_success">Connexion réussie</string>
+    <string name="forgot_password_clicked">Récupération du mot de passe...</string>
+    <string name="signup_clicked">Redirection vers l\'inscription...</string>
 </resources>
