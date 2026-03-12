@@ -1,5 +1,6 @@
 package com.example.unity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        val db = AppDatabase(this)
+
         val etEmail = findViewById<TextInputEditText>(R.id.etEmail)
         val etPassword = findViewById<TextInputEditText>(R.id.etPassword)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
@@ -28,25 +31,34 @@ class MainActivity : AppCompatActivity() {
         val tvSignUp = findViewById<TextView>(R.id.tvSignUp)
 
         btnLogin.setOnClickListener {
-            val email = etEmail.text.toString()
+            val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString()
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, getString(R.string.error_empty_fields), Toast.LENGTH_SHORT).show()
             } else {
-                // Logique de connexion
-                Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
+                val savedPassword = db.getUserPassword(email)
+
+                if (savedPassword == null) {
+                    Toast.makeText(this, getString(R.string.error_account_not_found), Toast.LENGTH_SHORT).show()
+                } else if (savedPassword == password) {
+                    val intent = Intent(this, DashboardActivity::class.java)
+                    intent.putExtra("USER_EMAIL", email)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Toast.makeText(this, getString(R.string.error_invalid_credentials), Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
         tvForgotPassword.setOnClickListener {
-            // Action pour mot de passe oublié
             Toast.makeText(this, getString(R.string.forgot_password_clicked), Toast.LENGTH_SHORT).show()
         }
 
         tvSignUp.setOnClickListener {
-            // Action pour l'inscription
-            Toast.makeText(this, getString(R.string.signup_clicked), Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
         }
     }
 }

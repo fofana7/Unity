@@ -2,4 +2,21 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="primary">#6200EE</color>
+    <color name="primary_variant">#3700B3</color>
+    <color name="secondary">#03DAC6</color>
+    <color name="social_google">#DB4437</color>
+    <color name="social_facebook">#4267B2</color>
+    <color name="background_light">#F5F5F5</color>
+    <color name="text_hint">#757575</color>
+
+    <!-- Dark Social Theme Colors -->
+    <color name="dark_bg">#0D1117</color>
+    <color name="dark_card">#161B22</color>
+    <color name="dark_sidebar">#0D1117</color>
+    <color name="dark_text_primary">#F0F6FC</color>
+    <color name="dark_text_secondary">#8B949E</color>
+    <color name="accent_blue">#58A6FF</color>
+    <color name="accent_purple">#BC8CFF</color>
+    <color name="dark_divider">#30363D</color>
 </resources>
