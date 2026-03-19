@@ -18,6 +18,11 @@
         android:usesCleartextTraffic="true">
 
         <activity
+            android:name=".AtelierGUIavance"
+            android:exported="false"
+            android:label="@string/title_settings" />
+
+        <activity
             android:name=".MessagesActivity"
             android:exported="false" />
         <activity
