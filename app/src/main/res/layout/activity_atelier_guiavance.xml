@@ -18,7 +18,17 @@
             android:layout_height="?attr/actionBarSize"
             app:title="@string/title_settings"
             app:titleTextColor="@color/white"
+            app:navigationIcon="@drawable/ic_back"
             app:navigationIconTint="@color/white" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:indeterminateTint="@color/unity_accent" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -83,6 +93,22 @@
                         android:clickable="true"
                         android:focusable="true" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/dark_divider" />
+
+                    <TextView
+                        android:id="@+id/tvDeleteAccount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:text="@string/item_delete_account"
+                        android:textColor="@color/unity_danger"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true" />
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -121,8 +147,7 @@
                     <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/switchNotifications"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -190,11 +215,11 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Section: Aide -->
+            <!-- Section: Aide & Navigation -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/section_help"
+                android:text="@string/section_app"
                 android:textColor="@color/unity_accent"
                 android:textStyle="bold"
                 android:textSize="14sp"
@@ -214,6 +239,25 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvBackToHome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:text="@string/item_back_to_home"
+                        android:textColor="@color/white"
+                        android:background="?attr/selectableItemBackground"
+                        app:drawableStartCompat="@drawable/ic_home"
+                        android:drawablePadding="12dp"
+                        app:drawableTint="@color/white"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/dark_divider" />
+
+                    <TextView
                         android:id="@+id/tvHelpCenter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -221,6 +265,9 @@
                         android:text="@string/item_help_center"
                         android:textColor="@color/white"
                         android:background="?attr/selectableItemBackground"
+                        app:drawableStartCompat="@drawable/ic_help"
+                        android:drawablePadding="12dp"
+                        app:drawableTint="@color/white"
                         android:clickable="true"
                         android:focusable="true" />
 
@@ -237,6 +284,9 @@
                         android:text="@string/item_logout"
                         android:textColor="@color/unity_danger"
                         android:background="?attr/selectableItemBackground"
+                        app:drawableStartCompat="@drawable/ic_logout"
+                        android:drawablePadding="12dp"
+                        app:drawableTint="@color/unity_danger"
                         android:clickable="true"
                         android:focusable="true" />
 
