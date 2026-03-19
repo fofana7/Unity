@@ -39,6 +39,20 @@
     <string name="logout">Quitter</string>
     <string name="btn_publish">Publier</string>
 
+    <!-- Settings (AtelierGUIavance) -->
+    <string name="title_settings">Paramètres</string>
+    <string name="section_account">Compte</string>
+    <string name="item_edit_profile">Modifier le profil</string>
+    <string name="item_change_password">Changer le mot de passe</string>
+    <string name="section_notifications">Notifications</string>
+    <string name="item_push_notifications">Notifications push</string>
+    <string name="section_privacy">Confidentialité</string>
+    <string name="item_private_account">Compte privé</string>
+    <string name="item_block_users">Utilisateurs bloqués</string>
+    <string name="section_help">Aide</string>
+    <string name="item_help_center">Centre d\'aide</string>
+    <string name="item_logout">Se déconnecter</string>
+
     <!-- Autres -->
     <string name="error_account_not_found">Compte introuvable</string>
     <string name="error_invalid_credentials">Identifiants incorrects</string>

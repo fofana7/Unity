@@ -29,12 +29,13 @@ class DashboardActivity : AppCompatActivity() {
 
         sessionManager = SessionManager(this)
         
-        // Appliquer les marges pour le design immersif
         val topBar = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.topBar)
-        ViewCompat.setOnApplyWindowInsetsListener(topBar) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
-            insets
+        if (topBar != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(topBar) { v, insets ->
+                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+                insets
+            }
         }
 
         val tvTopUsername = findViewById<TextView>(R.id.tvTopUsername)
@@ -42,21 +43,19 @@ class DashboardActivity : AppCompatActivity() {
         val btnLogout = findViewById<TextView>(R.id.btnLogout)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
 
-        // 1. Récupérer les infos du profil depuis le backend
         fetchUserProfile(tvTopUsername, tvWelcome)
 
-        // 2. Gestion de la déconnexion
-        btnLogout.setOnClickListener {
-            sessionManager.clearSession() // Effacer le token
+        btnLogout?.setOnClickListener {
+            sessionManager.clearSession()
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
         }
 
-        // 3. Navigation
-        bottomNav.setOnItemSelectedListener { item ->
+        bottomNav?.setOnItemSelectedListener { item ->
             when (item.itemId) {
+                R.id.nav_home -> true // Déjà sur l'accueil
                 R.id.nav_profile -> {
                     startActivity(Intent(this, ProfileActivity::class.java))
                     true
@@ -65,12 +64,17 @@ class DashboardActivity : AppCompatActivity() {
                     startActivity(Intent(this, MessagesActivity::class.java))
                     true
                 }
+                R.id.nav_settings -> {
+                    // OUVERTURE DE LA PAGE RÉGLAGES
+                    startActivity(Intent(this, AtelierGUIavance::class.java))
+                    true
+                }
                 else -> true
             }
         }
     }
 
-    private fun fetchUserProfile(tvUsername: TextView, tvWelcome: TextView) {
+    private fun fetchUserProfile(tvUsername: TextView?, tvWelcome: TextView?) {
         val token = sessionManager.fetchAuthToken()
         if (token == null) {
             redirectToLogin()
@@ -79,24 +83,17 @@ class DashboardActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                // On ajoute "Bearer " devant le token comme attendu par la plupart des API
                 val response = RetrofitClient.instance.getMe("Bearer $token")
-                
                 if (response.isSuccessful && response.body() != null) {
                     currentUser = response.body()
                     val name = currentUser?.firstName ?: currentUser?.username ?: "Utilisateur"
-                    
-                    tvUsername.text = name
-                    tvWelcome.text = "Ravi de vous revoir, $name !"
-                    
-                    Log.d("DASHBOARD", "Profil récupéré : ${currentUser?.email}")
-                } else {
-                    Log.e("DASHBOARD", "Erreur lors de la récupération du profil")
-                    if (response.code() == 401) redirectToLogin()
+                    tvUsername?.text = name
+                    tvWelcome?.text = "Ravi de vous revoir, $name !"
+                } else if (response.code() == 401) {
+                    redirectToLogin()
                 }
             } catch (e: Exception) {
                 Log.e("DASHBOARD", "Erreur réseau", e)
-                Toast.makeText(this@DashboardActivity, "Erreur de synchronisation", Toast.LENGTH_SHORT).show()
             }
         }
     }
