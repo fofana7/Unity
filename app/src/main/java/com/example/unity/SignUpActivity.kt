@@ -1,6 +1,7 @@
 package com.example.unity
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
@@ -10,7 +11,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.launch
 
 class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,47 +27,89 @@ class SignUpActivity : AppCompatActivity() {
             insets
         }
 
-        val db = AppDatabase(this)
-
         val etFirstName = findViewById<TextInputEditText>(R.id.etFirstName)
         val etLastName = findViewById<TextInputEditText>(R.id.etLastName)
         val etUsername = findViewById<TextInputEditText>(R.id.etUsername)
         val actRole = findViewById<AutoCompleteTextView>(R.id.actRole)
+        val tilClasse = findViewById<TextInputLayout>(R.id.tilClasse)
+        val actClasse = findViewById<AutoCompleteTextView>(R.id.actClasse)
         val etEmail = findViewById<TextInputEditText>(R.id.etEmail)
         val etPassword = findViewById<TextInputEditText>(R.id.etPassword)
         val etConfirmPassword = findViewById<TextInputEditText>(R.id.etConfirmPassword)
         val btnSignUp = findViewById<Button>(R.id.btnSignUp)
         val tvLogin = findViewById<TextView>(R.id.tvLogin)
 
-        val roles = arrayOf("Étudiant", "Professeur", "Administrateur")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, roles)
-        actRole.setAdapter(adapter)
+        // Configuration des rôles
+        val rolesDisplay = arrayOf("Étudiant", "Professeur", "Administrateur")
+        val rolesTechnical = mapOf("Étudiant" to "eleve", "Professeur" to "enseignant", "Administrateur" to "personnel")
+        val adapterRoles = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, rolesDisplay)
+        actRole.setAdapter(adapterRoles)
+
+        // Configuration des classes
+        val classes = arrayOf("L1", "L2", "L3", "M1", "M2")
+        val adapterClasses = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, classes)
+        actClasse.setAdapter(adapterClasses)
+
+        // Affichage dynamique du champ Classe
+        actRole.setOnItemClickListener { parent, _, position, _ ->
+            val selected = parent.getItemAtPosition(position).toString()
+            if (selected == "Étudiant") {
+                tilClasse.visibility = View.VISIBLE
+            } else {
+                tilClasse.visibility = View.GONE
+                actClasse.text.clear()
+            }
+        }
 
         btnSignUp.setOnClickListener {
             val firstName = etFirstName.text.toString().trim()
             val lastName = etLastName.text.toString().trim()
             val username = etUsername.text.toString().trim()
-            val role = actRole.text.toString().trim()
+            val selectedRoleDisplay = actRole.text.toString().trim()
+            val selectedClasse = actClasse.text.toString().trim()
             val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString()
             val confirmPassword = etConfirmPassword.text.toString()
 
+            val technicalRole = rolesTechnical[selectedRoleDisplay] ?: "eleve"
+
             if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || 
-                role.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                selectedRoleDisplay.isEmpty() || email.isEmpty() || password.isEmpty() ||
+                (technicalRole == "eleve" && selectedClasse.isEmpty())) {
                 Toast.makeText(this, getString(R.string.error_empty_fields), Toast.LENGTH_SHORT).show()
             } else if (!email.endsWith("@esme.fr")) {
                 Toast.makeText(this, getString(R.string.error_invalid_email_domain), Toast.LENGTH_SHORT).show()
             } else if (password != confirmPassword) {
                 Toast.makeText(this, getString(R.string.error_password_mismatch), Toast.LENGTH_SHORT).show()
             } else {
-                db.saveUser(email, password, username, firstName, lastName, role)
-                Toast.makeText(this, getString(R.string.signup_success), Toast.LENGTH_SHORT).show()
-                finish()
+                lifecycleScope.launch {
+                    try {
+                        val registerRequest = RegisterRequest(
+                            email = email,
+                            password = password,
+                            username = username,
+                            firstName = firstName,
+                            lastName = lastName,
+                            role = technicalRole,
+                            classe = if (technicalRole == "eleve") selectedClasse else null
+                        )
+                        
+                        val response = RetrofitClient.instance.register(registerRequest)
+
+                        if (response.isSuccessful) {
+                            Toast.makeText(this@SignUpActivity, "Inscription réussie !", Toast.LENGTH_LONG).show()
+                            finish()
+                        } else {
+                            val errorBody = response.errorBody()?.string() ?: "Erreur d'inscription"
+                            Toast.makeText(this@SignUpActivity, "Serveur : $errorBody", Toast.LENGTH_LONG).show()
+                        }
+                    } catch (e: Exception) {
+                        Toast.makeText(this@SignUpActivity, "Erreur réseau : ${e.message}", Toast.LENGTH_LONG).show()
+                    }
+                }
             }
         }
 
-        tvLogin.setOnClickListener {
-            finish()
-        }
+        tvLogin.setOnClickListener { finish() }
     }
 }

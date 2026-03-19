@@ -1,25 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Unity" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryVariant">@color/primary_variant</item>
-        <item name="colorSecondary">@color/secondary</item>
-        <item name="android:windowBackground">@color/background_light</item>
-        <item name="android:statusBarColor">@color/white</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/unity_accent</item>
+        <item name="colorSecondary">@color/unity_accent</item>
+        <item name="android:windowBackground">@color/unity_bg</item>
+        <item name="android:statusBarColor">@color/unity_card</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="Theme.Unity" parent="Base.Theme.Unity" />
-
-    <style name="SidebarMenuItem" parent="">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">12dp</item>
-        <item name="android:textColor">@color/dark_text_secondary</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:drawablePadding">12dp</item>
-        <item name="android:clickable">true</item>
-        <item name="android:focusable">true</item>
-        <item name="android:background">?attr/selectableItemBackground</item>
-    </style>
 </resources>

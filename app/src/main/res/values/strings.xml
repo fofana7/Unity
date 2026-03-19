@@ -1,33 +1,45 @@
 <resources>
     <string name="app_name">Unity</string>
-    <string name="login_title">Bienvenue sur Unity</string>
-    <string name="login_subtitle">Connectez-vous pour voir les nouveautés de vos amis</string>
+
+    <!-- Connexion -->
+    <string name="login_title">Connexion</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Mot de passe</string>
     <string name="login_button">Se connecter</string>
     <string name="forgot_password">Mot de passe oublié ?</string>
-    <string name="no_account">Pas encore de compte ? <b>S\'inscrire</b></string>
-    <string name="or_continue_with">Ou continuer avec</string>
-    <string name="google_login">Google</string>
-    <string name="facebook_login">Facebook</string>
+    <string name="no_account">Pas encore de compte ? S\'inscrire</string>
     <string name="error_empty_fields">Veuillez remplir tous les champs</string>
-    <string name="login_success">Connexion réussie ! Bienvenue %s</string>
-    <string name="error_invalid_credentials">Email ou mot de passe incorrect</string>
-    <string name="error_account_not_found">Ce compte n\'existe pas</string>
+    <string name="login_success">Connexion réussie</string>
     <string name="forgot_password_clicked">Récupération du mot de passe...</string>
     <string name="signup_clicked">Redirection vers l\'inscription...</string>
 
-    <!-- Sign Up Strings -->
-    <string name="signup_title">Créer un compte</string>
-    <string name="signup_subtitle">Rejoignez la communauté Unity dès aujourd\'hui</string>
+    <!-- Inscription -->
+    <string name="signup_title">Inscription</string>
+    <string name="signup_subtitle">Rejoignez la communauté Unity</string>
     <string name="first_name_hint">Prénom</string>
     <string name="last_name_hint">Nom</string>
     <string name="username_hint">Nom d\'utilisateur</string>
-    <string name="role_hint">Votre rôle</string>
+    <string name="role_hint">Rôle</string>
     <string name="confirm_password_hint">Confirmer le mot de passe</string>
     <string name="signup_button">S\'inscrire</string>
-    <string name="already_have_account">Déjà un compte ? <b>Se connecter</b></string>
+    <string name="already_have_account">Déjà un compte ? Se connecter</string>
+    <string name="register_success">Compte créé avec succès !</string>
+    <string name="error_invalid_email_domain">Veuillez utiliser votre email @esme.fr</string>
     <string name="error_password_mismatch">Les mots de passe ne correspondent pas</string>
-    <string name="error_invalid_email_domain">Veuillez utiliser votre adresse email @esme.fr</string>
-    <string name="signup_success">Compte créé avec succès ! Connectez-vous.</string>
+
+    <!-- Dashboard Unity -->
+    <string name="unity_badge">Espace Étudiants</string>
+    <string name="unity_hero_title">Retrouve ton campus, en ligne.</string>
+    <string name="unity_hero_subtitle">Discute avec ta promo et partage des ressources.</string>
+    <string name="role_student">👨‍🎓 Étudiant</string>
+    <string name="role_student_desc">Fil d\'actualité, messagerie.</string>
+    <string name="role_teacher">👨‍🏫 Enseignant</string>
+    <string name="role_teacher_desc">Suivi des groupes, annonces.</string>
+    <string name="search_hint">Rechercher sur Unity...</string>
+    <string name="logout">Quitter</string>
+    <string name="btn_publish">Publier</string>
+
+    <!-- Autres -->
+    <string name="error_account_not_found">Compte introuvable</string>
+    <string name="error_invalid_credentials">Identifiants incorrects</string>
 </resources>
