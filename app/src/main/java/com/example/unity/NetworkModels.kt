@@ -30,7 +30,8 @@ data class ChangePasswordRequest(
     @SerializedName("newPassword") val newPassword: String
 )
 
-// --- WRAPPERS (Pour correspondre à la structure de ton API Express) ---
+// --- WRAPPERS (Structure API Express) ---
+
 data class UserWrapper(
     @SerializedName("user") val user: UserResponse
 )
