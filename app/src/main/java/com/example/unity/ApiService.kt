@@ -7,7 +7,7 @@ interface ApiService {
 
     // --- AUTH ---
     @POST("auth/register")
-    suspend fun register(@Body body: RegisterRequest): Response<UserResponse>
+    suspend fun register(@Body body: RegisterRequest): Response<UserWrapper>
 
     @POST("auth/login")
     suspend fun login(@Body body: LoginRequest): Response<LoginResponse>
@@ -20,13 +20,13 @@ interface ApiService {
 
     // --- USERS ---
     @GET("users/me")
-    suspend fun getMe(@Header("Authorization") token: String): Response<UserResponse>
+    suspend fun getMe(@Header("Authorization") token: String): Response<UserWrapper>
 
     @PUT("users/me")
     suspend fun updateMe(
         @Header("Authorization") token: String,
         @Body body: UserResponse
-    ): Response<UserResponse>
+    ): Response<UserWrapper>
 
     @DELETE("users/me")
     suspend fun deleteMe(@Header("Authorization") token: String): Response<Void>
@@ -35,20 +35,14 @@ interface ApiService {
     suspend fun getUser(
         @Header("Authorization") token: String,
         @Path("id") id: Int
-    ): Response<UserResponse>
-
-    @GET("users/{id}/friends")
-    suspend fun getUserFriends(
-        @Header("Authorization") token: String,
-        @Path("id") id: Int
-    ): Response<List<UserResponse>>
+    ): Response<UserWrapper>
 
     // --- AMIS ---
     @GET("ami")
-    suspend fun getAllUsers(@Header("Authorization") token: String): Response<List<UserResponse>>
+    suspend fun getAllUsers(@Header("Authorization") token: String): Response<UsersListWrapper>
 
     @GET("ami/friends")
-    suspend fun getMyFriends(@Header("Authorization") token: String): Response<List<UserResponse>>
+    suspend fun getMyFriends(@Header("Authorization") token: String): Response<UsersListWrapper>
 
     @GET("ami/requests")
     suspend fun getFriendRequests(@Header("Authorization") token: String): Response<List<FriendActionRequest>>
@@ -65,21 +59,28 @@ interface ApiService {
         @Body body: FriendActionRequest
     ): Response<Void>
 
-    @POST("ami/reject")
-    suspend fun rejectFriend(
+    // --- MESSAGES ---
+    @GET("messages/private/{userId}")
+    suspend fun getPrivateMessages(
         @Header("Authorization") token: String,
-        @Body body: FriendActionRequest
-    ): Response<Void>
+        @Path("userId") otherUserId: Int
+    ): Response<List<Message>>
 
-    @POST("ami/remove")
-    suspend fun removeFriend(
+    @POST("messages/private")
+    suspend fun sendPrivateMessage(
         @Header("Authorization") token: String,
-        @Body body: FriendActionRequest
-    ): Response<Void>
+        @Body body: Message
+    ): Response<Message>
 
-    @GET("ami/check/{friendId}")
-    suspend fun checkFriendship(
+    @GET("messages/group/{groupId}")
+    suspend fun getGroupMessages(
         @Header("Authorization") token: String,
-        @Path("friendId") friendId: Int
-    ): Response<Map<String, Boolean>>
+        @Path("groupId") groupId: Int
+    ): Response<List<Message>>
+
+    @POST("messages/group")
+    suspend fun sendGroupMessage(
+        @Header("Authorization") token: String,
+        @Body body: Message
+    ): Response<Message>
 }

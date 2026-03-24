@@ -18,9 +18,21 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".AtelierGUIavance"
+            android:name=".FriendsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".EditProfileActivity"
             android:exported="false"
-            android:label="@string/title_settings" />
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".AtelierGUIavance"
+            android:exported="false" />
 
         <activity
             android:name=".MessagesActivity"
