@@ -172,6 +172,16 @@
                 android:textColorHint="@color/unity_muted"
                 android:textSize="14sp" />
 
+            <!-- Suggestions Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFriendSuggestions"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:text="Suggestions d'amis"
+                android:backgroundTint="@color/unity_accent"
+                app:cornerRadius="8dp"/>
+
             <!-- New Post -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
