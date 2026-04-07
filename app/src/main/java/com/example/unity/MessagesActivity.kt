@@ -75,6 +75,11 @@ class MessagesActivity : AppCompatActivity() {
                     finish()
                     true
                 }
+                R.id.nav_friends -> {
+                    startActivity(Intent(this, FriendsActivity::class.java))
+                    finish()
+                    true
+                }
                 R.id.nav_messages -> true
                 R.id.nav_profile -> {
                     startActivity(Intent(this, ProfileActivity::class.java))

@@ -76,13 +76,13 @@ class FriendSuggestionsActivity : AppCompatActivity() {
                 // Récupération des amis actuels
                 val friendsResponse = RetrofitClient.instance.getMyFriends("Bearer $token")
                 if (friendsResponse.isSuccessful) {
-                    myFriends = friendsResponse.body()?.friends ?: friendsResponse.body()?.users ?: emptyList()
+                    myFriends = friendsResponse.body() ?: emptyList()
                 }
 
                 // Récupération de tous les utilisateurs (amis potentiels)
                 val allUsersResponse = RetrofitClient.instance.getAllUsers("Bearer $token")
                 if (allUsersResponse.isSuccessful) {
-                    allUsers = allUsersResponse.body()?.users ?: emptyList()
+                    allUsers = allUsersResponse.body() ?: emptyList()
                 }
 
                 filterAndDisplaySuggestions()

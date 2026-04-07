@@ -68,5 +68,7 @@ data class Message(
 )
 
 data class FriendActionRequest(
-    @SerializedName("friendId") val friendId: Int? = null
+    @SerializedName("toId") val friendId: Int? = null,
+    @SerializedName("fromId") val requesterId: Int? = null,
+    @SerializedName("status") val status: String? = null
 )

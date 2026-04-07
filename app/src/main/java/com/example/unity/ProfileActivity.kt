@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
 class ProfileActivity : AppCompatActivity() {
@@ -59,6 +60,34 @@ class ProfileActivity : AppCompatActivity() {
             Log.d("PROFILE_NAV", "Clic sur Modifier Profil")
             val intent = Intent(this, EditProfileActivity::class.java)
             startActivity(intent)
+        }
+
+        setupBottomNavigation()
+    }
+
+    private fun setupBottomNavigation() {
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        bottomNav?.selectedItemId = R.id.nav_profile
+        bottomNav?.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    startActivity(Intent(this, DashboardActivity::class.java))
+                    finish()
+                    true
+                }
+                R.id.nav_friends -> {
+                    startActivity(Intent(this, FriendsActivity::class.java))
+                    finish()
+                    true
+                }
+                R.id.nav_messages -> {
+                    startActivity(Intent(this, MessagesActivity::class.java))
+                    finish()
+                    true
+                }
+                R.id.nav_profile -> true
+                else -> true
+            }
         }
     }
 

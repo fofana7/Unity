@@ -39,10 +39,10 @@ interface ApiService {
 
     // --- AMIS ---
     @GET("ami")
-    suspend fun getAllUsers(@Header("Authorization") token: String): Response<UsersListWrapper>
+    suspend fun getAllUsers(@Header("Authorization") token: String): Response<List<UserResponse>>
 
     @GET("ami/friends")
-    suspend fun getMyFriends(@Header("Authorization") token: String): Response<UsersListWrapper>
+    suspend fun getMyFriends(@Header("Authorization") token: String): Response<List<UserResponse>>
 
     @GET("ami/requests")
     suspend fun getFriendRequests(@Header("Authorization") token: String): Response<List<FriendActionRequest>>
@@ -83,4 +83,20 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Body body: Message
     ): Response<Message>
+
+    // --- POSTS ---
+    @GET("posts")
+    suspend fun getPosts(@Header("Authorization") token: String): Response<List<PostResponse>>
+
+    @POST("posts")
+    suspend fun createPost(
+        @Header("Authorization") token: String,
+        @Body body: CreatePostRequest
+    ): Response<PostResponse>
+
+    @POST("posts/{id}/like")
+    suspend fun likePost(
+        @Header("Authorization") token: String,
+        @Path("id") postId: Int
+    ): Response<Void>
 }

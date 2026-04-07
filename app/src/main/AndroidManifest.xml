@@ -20,6 +20,10 @@
         <activity
             android:name=".FriendsActivity"
             android:exported="false" />
+            
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
 
         <activity
             android:name=".ChatActivity"
