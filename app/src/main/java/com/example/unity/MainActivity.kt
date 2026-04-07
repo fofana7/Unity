@@ -17,6 +17,12 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // --- VÉRIFICATION DES DONNÉES AU DÉMARRAGE ---
+        val db = AppDatabase(this)
+        db.debugLogDatabase()
+        // ----------------------------------------------
+
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -29,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         val etEmail = findViewById<TextInputEditText>(R.id.etEmail)
         val etPassword = findViewById<TextInputEditText>(R.id.etPassword)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
-        val tvForgotPassword = findViewById<TextView>(R.id.tvForgotPassword)
         val tvSignUp = findViewById<TextView>(R.id.tvSignUp)
 
         btnLogin.setOnClickListener {
@@ -51,8 +56,6 @@ class MainActivity : AppCompatActivity() {
 
                     if (response.isSuccessful && response.body() != null) {
                         val loginResponse = response.body()!!
-                        Log.d("LOGIN_TEST", "Succès ! Token : ${loginResponse.token}")
-                        
                         sessionManager.saveAuthToken(loginResponse.token)
                         // Sauvegarde de l'ID utilisateur pour les messages
                         loginResponse.user.id?.let { id -> sessionManager.saveUserId(id) }
@@ -63,12 +66,10 @@ class MainActivity : AppCompatActivity() {
                         finish()
                     } else {
                         val errorMsg = response.errorBody()?.string() ?: "Identifiants incorrects"
-                        Log.e("LOGIN_TEST", "Erreur serveur : $errorMsg")
                         Toast.makeText(this@MainActivity, "Erreur : $errorMsg", Toast.LENGTH_LONG).show()
                     }
                 } catch (e: Exception) {
-                    Log.e("LOGIN_TEST", "Erreur réseau : ${e.message}", e)
-                    Toast.makeText(this@MainActivity, "Impossible de joindre le serveur. Vérifiez que votre backend tourne sur http://localhost:3000", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MainActivity, "Erreur de connexion au serveur", Toast.LENGTH_LONG).show()
                 }
             }
         }

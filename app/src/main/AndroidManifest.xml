@@ -20,6 +20,10 @@
         <activity
             android:name=".FriendsActivity"
             android:exported="false" />
+            
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
 
         <activity
             android:name=".ChatActivity"
@@ -45,6 +49,9 @@
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FriendSuggestionsActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

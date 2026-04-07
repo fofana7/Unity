@@ -67,162 +67,157 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
         app:layout_constraintTop_toBottomOf="@id/topBar">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- Welcome -->
-            <TextView
-                android:id="@+id/tvWelcome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Retrouve ton campus, en ligne."
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Discute avec ta promo et partage des ressources."
-                android:textColor="@color/unity_muted"
-                android:textSize="13sp" />
-
-            <!-- Role Badges (Comme dans le HTML) -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <!-- Étudiant -->
-                    <LinearLayout
-                        android:layout_width="140dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/sidebar_card_bg"
-                        android:orientation="vertical"
-                        android:padding="12dp"
-                        android:layout_marginEnd="12dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="👨‍🎓 Étudiant"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:textSize="12sp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Fil d'actualité, messagerie."
-                            android:textColor="@color/unity_muted"
-                            android:textSize="10sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Enseignant -->
-                    <LinearLayout
-                        android:layout_width="140dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/sidebar_card_bg"
-                        android:orientation="vertical"
-                        android:padding="12dp"
-                        android:layout_marginEnd="12dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="👨‍🏫 Enseignant"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:textSize="12sp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Suivi des groupes, annonces."
-                            android:textColor="@color/unity_muted"
-                            android:textSize="10sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <!-- Search -->
-            <EditText
-                android:id="@+id/etSearch"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/search_bg"
-                android:hint="Rechercher sur Unity..."
-                android:paddingHorizontal="16dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/unity_muted"
-                android:textSize="14sp" />
-
-            <!-- New Post -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardBackgroundColor="@color/unity_card"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <EditText
-                        android:id="@+id/etNewPost"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:hint="Quoi de neuf ?"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/unity_muted" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/dark_divider"
-                        android:layout_marginVertical="12dp"/>
-
-                    <Button
-                        android:id="@+id/btnPublish"
-                        android:layout_width="wrap_content"
-                        android:layout_height="36dp"
-                        android:layout_gravity="end"
-                        android:backgroundTint="@color/unity_accent"
-                        android:text="Publier"
-                        android:textSize="12sp"
-                        android:textAllCaps="false" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/llFeed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="16dp" />
+                android:padding="16dp">
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                <!-- Welcome/Intro sections preserved ... -->
+                <TextView
+                    android:id="@+id/tvWelcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Retrouve ton campus, en ligne."
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Discute avec ta promo et partage des ressources."
+                    android:textColor="@color/unity_muted"
+                    android:textSize="13sp" />
+
+                <!-- Post Creation Premium Area -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    app:cardBackgroundColor="@color/unity_card"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <EditText
+                            android:id="@+id/etNewPost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="Quoi de neuf aujourd'hui ?"
+                            android:minHeight="60dp"
+                            android:gravity="top"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/unity_muted"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:id="@+id/ivSelectedImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            android:layout_marginTop="12dp"
+                            android:scaleType="centerCrop"
+                            android:visibility="gone"
+                            android:background="@drawable/sidebar_card_bg" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="12dp"
+                            android:background="@color/unity_accent_muted" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/btnPickImage"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:src="@android:drawable/ic_menu_camera"
+                                    app:tint="@color/unity_accent" />
+
+                                <ImageButton
+                                    android:id="@+id/btnSearchLink"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:layout_marginStart="8dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:src="@android:drawable/ic_menu_search"
+                                    app:tint="@color/unity_muted" />
+                            </LinearLayout>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnPublish"
+                                android:layout_width="wrap_content"
+                                android:layout_height="38dp"
+                                android:layout_alignParentEnd="true"
+                                android:backgroundTint="@color/unity_accent"
+                                android:text="Publier"
+                                android:textAllCaps="false"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                app:cornerRadius="20dp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Feed Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fil d'actualité"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:background="@color/unity_accent_muted" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llFeed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"

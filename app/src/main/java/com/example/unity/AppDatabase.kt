@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
 class AppDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -72,25 +73,6 @@ class AppDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, n
         db.insertWithOnConflict(TABLE_USERS, null, values, SQLiteDatabase.CONFLICT_REPLACE)
     }
 
-    fun isUserExists(email: String): Boolean {
-        val db = this.readableDatabase
-        val cursor = db.query(TABLE_USERS, arrayOf(COLUMN_EMAIL), "$COLUMN_EMAIL=?", arrayOf(email), null, null, null)
-        val exists = cursor.count > 0
-        cursor.close()
-        return exists
-    }
-
-    fun getUserPassword(email: String): String? {
-        val db = this.readableDatabase
-        val cursor = db.query(TABLE_USERS, arrayOf(COLUMN_PASSWORD), "$COLUMN_EMAIL=?", arrayOf(email), null, null, null)
-        var password: String? = null
-        if (cursor.moveToFirst()) {
-            password = cursor.getString(0)
-        }
-        cursor.close()
-        return password
-    }
-
     fun getUserName(email: String): String {
         val db = this.readableDatabase
         val cursor = db.query(TABLE_USERS, arrayOf(COLUMN_USERNAME), "$COLUMN_EMAIL=?", arrayOf(email), null, null, null)
@@ -100,28 +82,6 @@ class AppDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, n
         }
         cursor.close()
         return username
-    }
-
-    fun getUserRole(email: String): String {
-        val db = this.readableDatabase
-        val cursor = db.query(TABLE_USERS, arrayOf(COLUMN_ROLE), "$COLUMN_EMAIL=?", arrayOf(email), null, null, null)
-        var role = "Étudiant"
-        if (cursor.moveToFirst()) {
-            role = cursor.getString(0)
-        }
-        cursor.close()
-        return role
-    }
-
-    fun getUserFullName(email: String): String {
-        val db = this.readableDatabase
-        val cursor = db.query(TABLE_USERS, arrayOf(COLUMN_FIRSTNAME, COLUMN_LASTNAME), "$COLUMN_EMAIL=?", arrayOf(email), null, null, null)
-        var fullName = ""
-        if (cursor.moveToFirst()) {
-            fullName = "${cursor.getString(0)} ${cursor.getString(1)}".trim()
-        }
-        cursor.close()
-        return fullName
     }
 
     fun getAllEmails(): List<String> {
@@ -157,13 +117,19 @@ class AppDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, n
         val cursor = db.rawQuery("SELECT * FROM $TABLE_POSTS ORDER BY $COLUMN_ID DESC", null)
         
         if (cursor.moveToFirst()) {
+            val authorIndex = cursor.getColumnIndex(COLUMN_AUTHOR)
+            val contentIndex = cursor.getColumnIndex(COLUMN_CONTENT)
+            val uriIndex = cursor.getColumnIndex(COLUMN_URI)
+            val isImageIndex = cursor.getColumnIndex(COLUMN_IS_IMAGE)
+            val timeIndex = cursor.getColumnIndex(COLUMN_TIME)
+
             do {
                 postsList.add(Post(
-                    cursor.getString(1), // author
-                    cursor.getString(2), // content
-                    cursor.getString(3), // uri
-                    cursor.getInt(4) == 1, // is_image
-                    cursor.getString(5) // time
+                    if (authorIndex != -1) cursor.getString(authorIndex) else "Inconnu",
+                    if (contentIndex != -1) cursor.getString(contentIndex) else "",
+                    if (uriIndex != -1) cursor.getString(uriIndex) else null,
+                    if (isImageIndex != -1) cursor.getInt(isImageIndex) == 1 else false,
+                    if (timeIndex != -1) cursor.getString(timeIndex) else ""
                 ))
             } while (cursor.moveToNext())
         }
@@ -171,8 +137,33 @@ class AppDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, n
         return postsList
     }
 
-    fun clearAllPosts() {
+    // --- OUTILS DE VÉRIFICATION ET NETTOYAGE ---
+
+    /**
+     * Affiche tout le contenu de la base de données dans le Logcat (Filtre: DB_DEBUG)
+     */
+    fun debugLogDatabase() {
+        Log.d("DB_DEBUG", "--- CONTENU DE LA BASE DE DONNÉES ---")
+        
+        val emails = getAllEmails()
+        Log.d("DB_DEBUG", "> Utilisateurs enregistrés (${emails.size}) :")
+        emails.forEach { Log.d("DB_DEBUG", "  - $it") }
+
+        val posts = getAllPosts()
+        Log.d("DB_DEBUG", "> Nombre de posts locaux : ${posts.size}")
+        if (posts.isNotEmpty()) {
+            Log.d("DB_DEBUG", "  Dernier post de : ${posts[0].author}")
+        }
+        Log.d("DB_DEBUG", "--------------------------------------")
+    }
+
+    /**
+     * Vide toute la base de données locale
+     */
+    fun clearAllData() {
         val db = this.writableDatabase
+        db.delete(TABLE_USERS, null, null)
         db.delete(TABLE_POSTS, null, null)
+        Log.d("DB_DEBUG", "Base de données vidée.")
     }
 }
