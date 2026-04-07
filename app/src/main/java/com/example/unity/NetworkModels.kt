@@ -10,6 +10,7 @@ data class LoginRequest(
 )
 
 data class LoginResponse(
+    @SerializedName("message") val message: String,
     @SerializedName("token") val token: String,
     @SerializedName("user") val user: UserResponse
 )
@@ -29,6 +30,17 @@ data class ChangePasswordRequest(
     @SerializedName("newPassword") val newPassword: String
 )
 
+// --- WRAPPERS (Structure API Express) ---
+
+data class UserWrapper(
+    @SerializedName("user") val user: UserResponse
+)
+
+data class UsersListWrapper(
+    @SerializedName("users") val users: List<UserResponse>? = null,
+    @SerializedName("friends") val friends: List<UserResponse>? = null
+)
+
 // --- USER MODELS ---
 
 data class UserResponse(
@@ -39,25 +51,22 @@ data class UserResponse(
     @SerializedName("lastname") val lastName: String? = null,
     @SerializedName("role") val role: String? = null,
     @SerializedName("bio") val bio: String? = null,
-    @SerializedName("avatar_url") val avatarUrl: String? = null,
+    @SerializedName("avatarurl") val avatarUrl: String? = null,
     @SerializedName("classe") val classe: String? = null
 )
 
-// --- FRIEND MODELS ---
+// --- CHAT & FRIENDS ---
 
-data class FriendActionRequest(
-    @SerializedName("friendId") val friendId: Int? = null,
-    @SerializedName("requesterId") val requesterId: Int? = null,
-    @SerializedName("status") val status: String? = null
+data class Message(
+    @SerializedName("id") val id: Int? = null,
+    @SerializedName("sender_id") val senderId: Int,
+    @SerializedName("receiver_id") val receiverId: Int? = null,
+    @SerializedName("group_id") val groupId: Int? = null,
+    @SerializedName("content") val content: String,
+    @SerializedName("timestamp") val timestamp: String? = null,
+    var isMe: Boolean = false
 )
 
-// --- POST MODELS ---
-
-data class PostResponse(
-    @SerializedName("id") val id: Int,
-    @SerializedName("author") val author: String,
-    @SerializedName("content") val content: String,
-    @SerializedName("uri") val uri: String?,
-    @SerializedName("is_image") val isImage: Boolean,
-    @SerializedName("time") val time: String
+data class FriendActionRequest(
+    @SerializedName("friendId") val friendId: Int? = null
 )

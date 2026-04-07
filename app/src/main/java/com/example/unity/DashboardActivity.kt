@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -92,16 +91,17 @@ class DashboardActivity : AppCompatActivity() {
 
         bottomNav?.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_profile -> {
-                    startActivity(Intent(this, ProfileActivity::class.java))
+                R.id.nav_home -> true
+                R.id.nav_friends -> {
+                    startActivity(Intent(this, FriendsActivity::class.java))
                     true
                 }
                 R.id.nav_messages -> {
                     startActivity(Intent(this, MessagesActivity::class.java))
                     true
                 }
-                R.id.nav_settings -> {
-                    startActivity(Intent(this, AtelierGUIavance::class.java))
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
                     true
                 }
                 else -> true
@@ -115,8 +115,8 @@ class DashboardActivity : AppCompatActivity() {
             try {
                 val response = RetrofitClient.instance.getMe("Bearer $token")
                 if (response.isSuccessful && response.body() != null) {
-                    currentUser = response.body()
-                    val name = currentUser?.username ?: "Utilisateur"
+                    currentUser = response.body()!!.user
+                    val name = currentUser?.firstName ?: currentUser?.username ?: "Utilisateur"
                     tvUsername?.text = name
                     tvWelcome?.text = "Bienvenue, $name !"
                 }

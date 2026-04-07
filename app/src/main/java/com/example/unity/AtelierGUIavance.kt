@@ -110,8 +110,8 @@ class AtelierGUIavance : AppCompatActivity() {
             try {
                 val response = RetrofitClient.instance.getMe("Bearer $token")
                 progressBar.visibility = View.GONE
-                if (response.isSuccessful) {
-                    currentUser = response.body()
+                if (response.isSuccessful && response.body() != null) {
+                    currentUser = response.body()!!.user
                 }
             } catch (e: Exception) {
                 progressBar.visibility = View.GONE
@@ -132,7 +132,7 @@ class AtelierGUIavance : AppCompatActivity() {
             .setView(view)
             .setPositiveButton("Enregistrer") { _, _ ->
                 val newUsername = etUsername.text.toString().trim()
-                val newBio = etEditBioText(view).text.toString().trim() // correction ici
+                val newBio = etEditBioText(view).text.toString().trim()
                 
                 if (newUsername.isEmpty()) {
                     Toast.makeText(this, "Le nom d'utilisateur ne peut pas être vide", Toast.LENGTH_SHORT).show()
@@ -164,8 +164,8 @@ class AtelierGUIavance : AppCompatActivity() {
             try {
                 val response = RetrofitClient.instance.updateMe("Bearer $token", updatedUser)
                 progressBar.visibility = View.GONE
-                if (response.isSuccessful) {
-                    currentUser = response.body()
+                if (response.isSuccessful && response.body() != null) {
+                    currentUser = response.body()!!.user
                     Toast.makeText(this@AtelierGUIavance, "Profil mis à jour avec succès", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this@AtelierGUIavance, "Erreur lors de la mise à jour", Toast.LENGTH_SHORT).show()

@@ -57,6 +57,8 @@ class MainActivity : AppCompatActivity() {
                     if (response.isSuccessful && response.body() != null) {
                         val loginResponse = response.body()!!
                         sessionManager.saveAuthToken(loginResponse.token)
+                        // Sauvegarde de l'ID utilisateur pour les messages
+                        loginResponse.user.id?.let { id -> sessionManager.saveUserId(id) }
                         
                         val intent = Intent(this@MainActivity, DashboardActivity::class.java)
                         intent.putExtra("USER_EMAIL", email)
