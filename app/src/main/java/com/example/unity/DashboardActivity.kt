@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -45,9 +46,9 @@ class DashboardActivity : AppCompatActivity() {
         val tvWelcome = findViewById<TextView>(R.id.tvWelcome)
         val btnLogout = findViewById<TextView>(R.id.btnLogout)
         val etNewPost = findViewById<EditText>(R.id.etNewPost)
+        val btnPickImage = findViewById<View>(R.id.btnPickImage)
         val btnPublish = findViewById<Button>(R.id.btnPublish)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
-        val btnFriendSuggestions = findViewById<Button>(R.id.btnFriendSuggestions)
 
         fetchUserProfile(tvTopUsername, tvWelcome)
         loadPostsFromServer()
@@ -59,10 +60,6 @@ class DashboardActivity : AppCompatActivity() {
 
         swipeRefresh.setOnRefreshListener {
             loadPostsFromServer()
-        }
-
-        btnFriendSuggestions?.setOnClickListener {
-            startActivity(Intent(this, FriendSuggestionsActivity::class.java))
         }
 
         // --- BOUTON PUBLIER ---
