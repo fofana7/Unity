@@ -132,11 +132,12 @@
                 android:textStyle="italic" />
 
             <TextView
+                android:id="@+id/tvBio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text="Développeur Android passionné par les interfaces modernes et l'expérience utilisateur."
+                android:text="Aucune biographie"
                 android:textColor="@color/unity_muted"
                 android:textSize="15sp" />
 
@@ -189,7 +190,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
-                        <TextView android:id="@+id/tvPostCount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="124" android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold" />
+                        <TextView android:id="@+id/tvPostCount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Posts" android:textColor="@color/unity_muted" android:textSize="12sp" />
                     </LinearLayout>
 
@@ -201,21 +202,10 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1.2k" android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold" />
+                        <TextView android:id="@+id/tvFriendsCount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Amis" android:textColor="@color/unity_muted" android:textSize="12sp" />
                     </LinearLayout>
 
-                    <View android:layout_width="1dp" android:layout_height="30dp" android:layout_gravity="center" android:background="@color/unity_accent_muted" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="850" android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Abonnés" android:textColor="@color/unity_muted" android:textSize="12sp" />
-                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

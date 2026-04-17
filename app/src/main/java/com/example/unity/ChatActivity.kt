@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -18,8 +19,12 @@ class ChatActivity : AppCompatActivity() {
     private val messagesList = mutableListOf<Message>()
     private lateinit var sessionManager: SessionManager
     private var otherUserId: Int = -1
-    private var groupId: Int = -1
-    private var isGroup: Boolean = false
+    private var isPolling = true
+
+    override fun onDestroy() {
+        super.onDestroy()
+        isPolling = false
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +33,10 @@ class ChatActivity : AppCompatActivity() {
 
         sessionManager = SessionManager(this)
         
-        // Récupérer les infos de la conversation
         otherUserId = intent.getIntExtra("OTHER_USER_ID", -1)
-        groupId = intent.getIntExtra("GROUP_ID", -1)
-        val chatName = intent.getStringExtra("CHAT_NAME") ?: "Chat"
-        isGroup = groupId != -1
+        val otherUserName = intent.getStringExtra("OTHER_USER_NAME") ?: "Discussion"
 
-        findViewById<TextView>(R.id.tvChatName).text = chatName
+        findViewById<TextView>(R.id.tvChatName).text = otherUserName
         findViewById<ImageButton>(R.id.btnBack).setOnClickListener { finish() }
 
         val rvMessages = findViewById<RecyclerView>(R.id.rvMessages)
@@ -43,12 +45,11 @@ class ChatActivity : AppCompatActivity() {
 
         adapter = MessageAdapter(messagesList)
         rvMessages.layoutManager = LinearLayoutManager(this).apply {
-            stackFromEnd = true // Pour que les messages commencent par le bas
+            stackFromEnd = true
         }
         rvMessages.adapter = adapter
 
-        // Charger les messages
-        loadMessages()
+        startPollingMessages()
 
         btnSend.setOnClickListener {
             val content = etMessage.text.toString().trim()
@@ -59,32 +60,34 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadMessages() {
+    private fun startPollingMessages() {
         val token = sessionManager.fetchAuthToken() ?: return
         val myId = sessionManager.fetchUserId()
         
         lifecycleScope.launch {
-            try {
-                val response = if (isGroup) {
-                    RetrofitClient.instance.getGroupMessages("Bearer $token", groupId)
-                } else {
-                    RetrofitClient.instance.getPrivateMessages("Bearer $token", otherUserId)
-                }
+            while (isPolling) {
+                try {
+                    val response = RetrofitClient.instance.getPrivateMessages("Bearer $token", otherUserId)
 
-                if (response.isSuccessful && response.body() != null) {
-                    messagesList.clear()
-                    response.body()!!.forEach { msg ->
-                        msg.isMe = msg.senderId == myId
-                        messagesList.add(msg)
+                    if (response.isSuccessful && response.body() != null) {
+                        val serverMessages = response.body()!!
+                        
+                        if (serverMessages.size != messagesList.size) {
+                            messagesList.clear()
+                            serverMessages.forEach { msg ->
+                                msg.isMe = msg.senderId == myId
+                                messagesList.add(msg)
+                            }
+                            adapter.notifyDataSetChanged()
+                            if (messagesList.isNotEmpty()) {
+                                findViewById<RecyclerView>(R.id.rvMessages).scrollToPosition(messagesList.size - 1)
+                            }
+                        }
                     }
-                    adapter.notifyDataSetChanged()
-                    findViewById<RecyclerView>(R.id.rvMessages).scrollToPosition(messagesList.size - 1)
-                } else {
-                    addDummyMessages()
+                } catch (e: Exception) {
+                    Log.e("CHAT", "Erreur polling", e)
                 }
-            } catch (e: Exception) {
-                Log.e("CHAT", "Erreur réseau", e)
-                addDummyMessages()
+                kotlinx.coroutines.delay(2000)
             }
         }
     }
@@ -93,36 +96,30 @@ class ChatActivity : AppCompatActivity() {
         val token = sessionManager.fetchAuthToken() ?: return
         val myId = sessionManager.fetchUserId()
         
-        val newMessage = Message(
-            senderId = myId,
-            receiverId = if (!isGroup) otherUserId else null,
-            groupId = if (isGroup) groupId else null,
-            content = content,
-            isMe = true,
-            timestamp = "Maintenant"
-        )
+        if (myId == -1) {
+            Toast.makeText(this, "Erreur d'identification. Reconnectez-vous.", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-        // Ajout local immédiat pour la fluidité
-        messagesList.add(newMessage)
-        adapter.notifyItemInserted(messagesList.size - 1)
-        findViewById<RecyclerView>(R.id.rvMessages).scrollToPosition(messagesList.size - 1)
+        // Utilisation du modèle de requête simplifié pour le serveur
+        val sendRequest = SendMessageRequest(
+            receiverId = otherUserId,
+            content = content
+        )
 
         lifecycleScope.launch {
             try {
-                if (isGroup) {
-                    RetrofitClient.instance.sendGroupMessage("Bearer $token", newMessage)
-                } else {
-                    RetrofitClient.instance.sendPrivateMessage("Bearer $token", newMessage)
+                val response = RetrofitClient.instance.sendPrivateMessage("Bearer $token", sendRequest)
+                if (!response.isSuccessful) {
+                    val errorMsg = response.errorBody()?.string()
+                    Log.e("CHAT_SEND", "Erreur ${response.code()}: $errorMsg")
+                    Toast.makeText(this@ChatActivity, "Erreur d'envoi", Toast.LENGTH_SHORT).show()
                 }
+                // Le polling rafraîchira la liste automatiquement
             } catch (e: Exception) {
-                Log.e("CHAT", "Erreur envoi", e)
+                Log.e("CHAT_SEND", "Exception", e)
+                Toast.makeText(this@ChatActivity, "Erreur réseau", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun addDummyMessages() {
-        messagesList.add(Message(senderId = 0, content = "Salut !", timestamp = "10:00", isMe = false))
-        messagesList.add(Message(senderId = 1, content = "Coucou, comment ça va ?", timestamp = "10:01", isMe = true))
-        adapter.notifyDataSetChanged()
     }
 }

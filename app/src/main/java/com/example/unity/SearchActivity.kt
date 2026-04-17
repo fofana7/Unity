@@ -37,15 +37,27 @@ class SearchActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener { finish() }
 
-        adapter = FriendAdapter(emptyList()) { user, type ->
-            // Action à définir pour la recherche (ex: envoyer demande d'ami)
-            Toast.makeText(this, "Action sur ${user.username}", Toast.LENGTH_SHORT).show()
+        adapter = FriendAdapter(emptyList()) { user, type, isAccept ->
+            val token = sessionManager.fetchAuthToken() ?: return@FriendAdapter
+            val myId = sessionManager.fetchUserId()
+            lifecycleScope.launch {
+                try {
+                    val req = FriendActionRequest(friendId = user.id, requesterId = myId, status = "pending")
+                    val res = RetrofitClient.instance.addFriend("Bearer $token", req)
+                    if (res.isSuccessful) {
+                        Toast.makeText(this@SearchActivity, "Demande envoyée à ${user.username} !", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this@SearchActivity, "Erreur d'envoi", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(this@SearchActivity, "Erreur réseau", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         rvSearchResults.layoutManager = LinearLayoutManager(this)
         rvSearchResults.adapter = adapter
 
-        // On charge tous les utilisateurs pour filtrer localement (plus simple pour ce projet)
         loadAllUsers(progressBar)
 
         etSearchUser.addTextChangedListener(object : TextWatcher {

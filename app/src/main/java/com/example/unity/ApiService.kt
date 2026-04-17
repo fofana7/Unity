@@ -45,8 +45,9 @@ interface ApiService {
     suspend fun getMyFriends(@Header("Authorization") token: String): Response<List<UserResponse>>
 
     @GET("ami/requests")
-    suspend fun getFriendRequests(@Header("Authorization") token: String): Response<List<FriendActionRequest>>
+    suspend fun getFriendRequests(@Header("Authorization") token: String): Response<List<UserResponse>>
 
+    // Utilisation de FriendActionRequest pour la cohérence
     @POST("ami/add")
     suspend fun addFriend(
         @Header("Authorization") token: String,
@@ -59,17 +60,23 @@ interface ApiService {
         @Body body: FriendActionRequest
     ): Response<Void>
 
+    @POST("ami/decline")
+    suspend fun declineFriend(
+        @Header("Authorization") token: String,
+        @Body body: FriendActionRequest
+    ): Response<Void>
+
     // --- MESSAGES ---
-    @GET("messages/private/{userId}")
+    @GET("messages/{userId}")
     suspend fun getPrivateMessages(
         @Header("Authorization") token: String,
         @Path("userId") otherUserId: Int
     ): Response<List<Message>>
 
-    @POST("messages/private")
+    @POST("messages/send")
     suspend fun sendPrivateMessage(
         @Header("Authorization") token: String,
-        @Body body: Message
+        @Body body: SendMessageRequest
     ): Response<Message>
 
     @GET("messages/group/{groupId}")
@@ -78,14 +85,14 @@ interface ApiService {
         @Path("groupId") groupId: Int
     ): Response<List<Message>>
 
-    @POST("messages/group")
+    @POST("messages/group/send")
     suspend fun sendGroupMessage(
         @Header("Authorization") token: String,
         @Body body: Message
     ): Response<Message>
 
     // --- POSTS ---
-    @GET("posts")
+    @GET("posts/timeline")
     suspend fun getPosts(@Header("Authorization") token: String): Response<List<PostResponse>>
 
     @POST("posts")
@@ -98,5 +105,40 @@ interface ApiService {
     suspend fun likePost(
         @Header("Authorization") token: String,
         @Path("id") postId: Int
+    ): Response<Void>
+
+    @PUT("posts/{id}")
+    suspend fun updatePost(
+        @Header("Authorization") token: String,
+        @Path("id") postId: Int,
+        @Body body: CreatePostRequest
+    ): Response<PostResponse>
+
+    @DELETE("posts/{id}")
+    suspend fun deletePost(
+        @Header("Authorization") token: String,
+        @Path("id") postId: Int
+    ): Response<Void>
+
+    @POST("posts/{id}/comments")
+    suspend fun addComment(
+        @Header("Authorization") token: String,
+        @Path("id") postId: Int,
+        @Body body: Map<String, String>
+    ): Response<Void>
+
+    // --- CONVERSATIONS ---
+    @GET("messages/conversations")
+    suspend fun getConversations(@Header("Authorization") token: String): Response<List<ConversationResponse>>
+
+    // --- NOTIFICATIONS ---
+    @GET("notifications")
+    suspend fun getNotifications(@Header("Authorization") token: String): Response<List<NotificationItem>>
+
+    // --- GROUPES ---
+    @POST("ami/groups/create")
+    suspend fun createGroup(
+        @Header("Authorization") token: String,
+        @Body request: CreateGroupRequest
     ): Response<Void>
 }

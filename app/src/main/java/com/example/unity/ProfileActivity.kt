@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -42,7 +43,7 @@ class ProfileActivity : AppCompatActivity() {
         val btnEditProfile = findViewById<MaterialButton>(R.id.btnEditProfile)
 
         // On appelle l'API pour récupérer les infos en temps réel
-        fetchProfileData(tvFullName, tvUserRole, tvInitials)
+        fetchProfileData()
 
         btnBack.setOnClickListener {
             finish()
@@ -94,19 +95,23 @@ class ProfileActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         // Rafraîchir les données au retour de la modification
-        val tvFullName = findViewById<TextView>(R.id.tvFullName)
-        val tvUserRole = findViewById<TextView>(R.id.tvUserRole)
-        val tvInitials = findViewById<TextView>(R.id.tvInitials)
-        fetchProfileData(tvFullName, tvUserRole, tvInitials)
+        fetchProfileData()
     }
 
-    private fun fetchProfileData(tvName: TextView, tvRole: TextView, tvInit: TextView) {
+    private fun fetchProfileData() {
         val token = sessionManager.fetchAuthToken()
         if (token == null) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
             return
         }
+
+        val tvName = findViewById<TextView>(R.id.tvFullName)
+        val tvRole = findViewById<TextView>(R.id.tvUserRole)
+        val tvInit = findViewById<TextView>(R.id.tvInitials)
+        val tvBio = findViewById<TextView>(R.id.tvBio)
+        val tvFriendsCount = findViewById<TextView>(R.id.tvFriendsCount)
+        val tvPostCount = findViewById<TextView>(R.id.tvPostCount)
 
         lifecycleScope.launch {
             try {
@@ -130,6 +135,14 @@ class ProfileActivity : AppCompatActivity() {
                     
                     val displayForInitials = if (firstName.isNotEmpty()) firstName else username
                     tvInit.text = displayForInitials.take(1).uppercase()
+                    
+                    tvBio.text = user.bio ?: "Aucune biographie"
+                    tvFriendsCount.text = user.friendsCount.toString()
+                    tvPostCount.text = user.postsCount.toString()
+                    
+                    // DEBUG TOAST
+                    Toast.makeText(this@ProfileActivity, "Data: Friends=${user.friendsCount}, Posts=${user.postsCount}", Toast.LENGTH_SHORT).show()
+                    
                     
                 } else {
                     Log.e("PROFILE_ERROR", "Erreur serveur : ${response.code()}")

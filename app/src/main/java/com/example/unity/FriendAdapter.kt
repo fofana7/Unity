@@ -18,7 +18,7 @@ data class FriendItem(
 
 class FriendAdapter(
     private var items: List<FriendItem>,
-    private val onActionClick: (UserResponse, FriendActionType) -> Unit
+    private val onActionClick: (UserResponse, FriendActionType, Boolean) -> Unit
 ) : RecyclerView.Adapter<FriendAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -26,6 +26,7 @@ class FriendAdapter(
         val tvUserHandle: TextView = view.findViewById(R.id.tvUserHandle)
         val tvInitials: TextView = view.findViewById(R.id.tvInitials)
         val btnAction: MaterialButton = view.findViewById(R.id.btnAction)
+        val btnSecondaryAction: MaterialButton = view.findViewById(R.id.btnSecondaryAction)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -46,6 +47,10 @@ class FriendAdapter(
         val initials = (friend.firstName?.take(1) ?: friend.username?.take(1) ?: "U").uppercase()
         holder.tvInitials.text = initials
 
+        holder.btnSecondaryAction.visibility = View.GONE
+        holder.btnAction.isEnabled = true
+        holder.btnAction.backgroundTintList = null
+
         when (actionType) {
             FriendActionType.FRIEND -> {
                 holder.btnAction.text = "Message"
@@ -58,16 +63,28 @@ class FriendAdapter(
             FriendActionType.REQUEST -> {
                 holder.btnAction.text = "Accepter"
                 holder.btnAction.setIconResource(android.R.drawable.checkbox_on_background)
+                holder.btnSecondaryAction.visibility = View.VISIBLE
             }
             FriendActionType.SENT_REQUEST -> {
-                holder.btnAction.text = "Annuler"
-                holder.btnAction.setIconResource(android.R.drawable.ic_menu_close_clear_cancel)
+                holder.btnAction.text = "En attente"
+                holder.btnAction.setIconResource(0)
+                holder.btnAction.isEnabled = false
                 holder.btnAction.backgroundTintList = android.content.res.ColorStateList.valueOf(android.graphics.Color.GRAY)
             }
         }
 
         holder.btnAction.setOnClickListener {
-            onActionClick(friend, actionType)
+            if (actionType == FriendActionType.SUGGESTION) {
+                holder.btnAction.text = "En attente"
+                holder.btnAction.isEnabled = false
+                holder.btnAction.backgroundTintList = android.content.res.ColorStateList.valueOf(android.graphics.Color.GRAY)
+                holder.btnAction.setIconResource(0)
+            }
+            onActionClick(friend, actionType, true)
+        }
+        
+        holder.btnSecondaryAction.setOnClickListener {
+            onActionClick(friend, actionType, false)
         }
     }
 
@@ -78,7 +95,6 @@ class FriendAdapter(
         notifyDataSetChanged()
     }
     
-    // Reste pour la compatibilité si besoin ou à supprimer
     fun updateData(newList: List<UserResponse>, type: FriendActionType) {
         items = newList.map { FriendItem(it, type) }
         notifyDataSetChanged()

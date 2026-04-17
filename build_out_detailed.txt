@@ -1,0 +1,842 @@
+Initialized native services in: C:\Users\user\.gradle\native
+Initialized jansi services in: C:\Users\user\.gradle\native
+The client will now receive all logging from the daemon (pid: 27856). The daemon log file: C:\Users\user\.gradle\daemon\9.2.1\daemon-27856.out.log
+Starting 72nd build in daemon [uptime: 2 hrs 26 mins 50.077 secs, performance: 99%, GC rate: 0.00/s, heap usage: 0% of 2 GiB]
+Using 8 worker leases.
+Operational build model parameters: {requiresToolingModels=false, parallelProjectExecution=false, configureOnDemand=false, configurationCache=false, configurationCacheParallelStore=false, configurationCacheParallelLoad=true, isolatedProjects=false, parallelProjectConfiguration=false, intermediateModelCache=false, parallelToolingApiActions=false, invalidateCoupledProjects=false, modelAsProjectDependency=false, resilientModelBuilding=false}
+Now considering [C:\Users\user\AndroidStudioProjects\Unity] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Resolved plugin [id: 'org.gradle.toolchains.foojay-resolver-convention', version: '1.0.0']
+Settings evaluated using settings file 'C:\Users\user\AndroidStudioProjects\Unity\settings.gradle.kts'.
+Projects loaded. Root project using build file 'C:\Users\user\AndroidStudioProjects\Unity\build.gradle.kts'.
+Included projects: [root project 'Unity', project ':app']
+
+> Configure project :
+Evaluating root project 'Unity' using build file 'C:\Users\user\AndroidStudioProjects\Unity\build.gradle.kts'.
+Resolved plugin [id: 'com.android.application', version: '8.13.2', apply: false]
+Resolved plugin [id: 'org.jetbrains.kotlin.android', version: '2.0.21', apply: false]
+
+> Configure project :app
+Evaluating project ':app' using build file 'C:\Users\user\AndroidStudioProjects\Unity\app\build.gradle.kts'.
+Resolved plugin [id: 'com.android.application', version: '8.13.2']
+Resolved plugin [id: 'org.jetbrains.kotlin.android', version: '2.0.21']
+Using default execution profile
+Using Kotlin Gradle Plugin gradle85 variant
+All projects evaluated.
+Task name matched 'assembleDebug'
+Selected primary task 'assembleDebug' from project :
+Adding -Xuse-inline-scopes-numbers Kotlin compiler flag for task :app:compileDebugKotlin
+Tasks to be executed: [task ':app:preBuild', task ':app:preDebugBuild', task ':app:mergeDebugNativeDebugMetadata', task ':app:checkKotlinGradlePluginConfigurationErrors', task ':app:dataBindingMergeDependencyArtifactsDebug', task ':app:generateDebugResValues', task ':app:generateDebugResources', task ':app:mergeDebugResources', task ':app:packageDebugResources', task ':app:processDebugNavigationResources', task ':app:parseDebugLocalResources', task ':app:dataBindingGenBaseClassesDebug', task ':app:checkDebugAarMetadata', task ':app:compileDebugNavigationResources', task ':app:mapDebugSourceSetPaths', task ':app:createDebugCompatibleScreenManifests', task ':app:extractDeepLinksDebug', task ':app:processDebugMainManifest', task ':app:processDebugManifest', task ':app:processDebugManifestForPackage', task ':app:processDebugResources', task ':app:compileDebugKotlin', task ':app:javaPreCompileDebug', task ':app:compileDebugJavaWithJavac', task ':app:mergeDebugShaders', task ':app:compileDebugShaders', task ':app:generateDebugAssets', task ':app:mergeDebugAssets', task ':app:compressDebugAssets', task ':app:processDebugJavaRes', task ':app:mergeDebugJavaResource', task ':app:checkDebugDuplicateClasses', task ':app:desugarDebugFileDependencies', task ':app:mergeExtDexDebug', task ':app:mergeLibDexDebug', task ':app:dexBuilderDebug', task ':app:mergeProjectDexDebug', task ':app:mergeDebugJniLibFolders', task ':app:mergeDebugNativeLibs', task ':app:stripDebugDebugSymbols', task ':app:validateSigningDebug', task ':app:writeDebugAppMetadata', task ':app:writeDebugSigningConfigVersions', task ':app:packageDebug', task ':app:createDebugApkListingFileRedirect', task ':app:assembleDebug']
+Tasks that were excluded: []
+Resolve mutations for :app:preBuild (Thread[#4838,Execution worker,5,main]) started.
+:app:preBuild (Thread[#4838,Execution worker,5,main]) started.
+
+> Task :app:preBuild UP-TO-DATE
+Skipping task ':app:preBuild' as it has no actions.
+Resolve mutations for :app:preDebugBuild (Thread[#4838,Execution worker,5,main]) started.
+:app:preDebugBuild (Thread[#4838,Execution worker,5,main]) started.
+
+> Task :app:preDebugBuild UP-TO-DATE
+Skipping task ':app:preDebugBuild' as it has no actions.
+Resolve mutations for :app:mergeDebugNativeDebugMetadata (Thread[#4838,Execution worker,5,main]) started.
+:app:mergeDebugNativeDebugMetadata (Thread[#4838,Execution worker,5,main]) started.
+
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+Skipping task ':app:mergeDebugNativeDebugMetadata' as it has no source files and no previous output files.
+Resolve mutations for :app:checkKotlinGradlePluginConfigurationErrors (Thread[#4838,Execution worker,5,main]) started.
+:app:checkKotlinGradlePluginConfigurationErrors (Thread[#4838,Execution worker,5,main]) started.
+
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+Skipping task ':app:checkKotlinGradlePluginConfigurationErrors' as task onlyIf 'errorDiagnostics are present' is false.
+Resolve mutations for :app:dataBindingMergeDependencyArtifactsDebug (Thread[#4838,Execution worker,5,main]) started.
+:app:dataBindingMergeDependencyArtifactsDebug (Thread[#4838,Execution worker,5,main]) started.
+
+> Task :app:dataBindingMergeDependencyArtifactsDebug UP-TO-DATE
+Caching disabled for task ':app:dataBindingMergeDependencyArtifactsDebug' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:dataBindingMergeDependencyArtifactsDebug' as it is up-to-date.
+Resolve mutations for :app:generateDebugResValues (Thread[#4838,Execution worker,5,main]) started.
+:app:generateDebugResValues (Thread[#4838,Execution worker,5,main]) started.
+
+> Task :app:generateDebugResValues UP-TO-DATE
+Caching disabled for task ':app:generateDebugResValues' because:
+  Build cache is disabled
+Skipping task ':app:generateDebugResValues' as it is up-to-date.
+Resolve mutations for :app:generateDebugResources (Thread[#4838,Execution worker,5,main]) started.
+:app:generateDebugResources (Thread[#4842,Execution worker Thread 5,5,main]) started.
+
+> Task :app:generateDebugResources UP-TO-DATE
+Caching disabled for task ':app:generateDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:generateDebugResources' as it is up-to-date.
+Resolve mutations for :app:mergeDebugResources (Thread[#4842,Execution worker Thread 5,5,main]) started.
+:app:mergeDebugResources (Thread[#4842,Execution worker Thread 5,5,main]) started.
+
+> Task :app:mergeDebugResources UP-TO-DATE
+Caching disabled for task ':app:mergeDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:mergeDebugResources' as it is up-to-date.
+Resolve mutations for :app:packageDebugResources (Thread[#4842,Execution worker Thread 5,5,main]) started.
+:app:packageDebugResources (Thread[#4842,Execution worker Thread 5,5,main]) started.
+
+> Task :app:packageDebugResources UP-TO-DATE
+Caching disabled for task ':app:packageDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:packageDebugResources' as it is up-to-date.
+Resolve mutations for :app:processDebugNavigationResources (Thread[#4842,Execution worker Thread 5,5,main]) started.
+:app:processDebugNavigationResources (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:processDebugNavigationResources UP-TO-DATE
+Caching disabled for task ':app:processDebugNavigationResources' because:
+  Build cache is disabled
+Skipping task ':app:processDebugNavigationResources' as it is up-to-date.
+Resolve mutations for :app:parseDebugLocalResources (Thread[#4839,Execution worker Thread 2,5,main]) started.
+:app:parseDebugLocalResources (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:parseDebugLocalResources UP-TO-DATE
+Caching disabled for task ':app:parseDebugLocalResources' because:
+  Build cache is disabled
+Skipping task ':app:parseDebugLocalResources' as it is up-to-date.
+Resolve mutations for :app:dataBindingGenBaseClassesDebug (Thread[#4839,Execution worker Thread 2,5,main]) started.
+:app:dataBindingGenBaseClassesDebug (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:dataBindingGenBaseClassesDebug UP-TO-DATE
+Caching disabled for task ':app:dataBindingGenBaseClassesDebug' because:
+  Build cache is disabled
+Skipping task ':app:dataBindingGenBaseClassesDebug' as it is up-to-date.
+Resolve mutations for :app:checkDebugAarMetadata (Thread[#4839,Execution worker Thread 2,5,main]) started.
+:app:checkDebugAarMetadata (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+Caching disabled for task ':app:checkDebugAarMetadata' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:checkDebugAarMetadata' as it is up-to-date.
+Resolve mutations for :app:compileDebugNavigationResources (Thread[#4839,Execution worker Thread 2,5,main]) started.
+:app:compileDebugNavigationResources (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:compileDebugNavigationResources UP-TO-DATE
+Caching disabled for task ':app:compileDebugNavigationResources' because:
+  Build cache is disabled
+Skipping task ':app:compileDebugNavigationResources' as it is up-to-date.
+Resolve mutations for :app:mapDebugSourceSetPaths (Thread[#4839,Execution worker Thread 2,5,main]) started.
+:app:mapDebugSourceSetPaths (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+Caching disabled for task ':app:mapDebugSourceSetPaths' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:mapDebugSourceSetPaths' as it is up-to-date.
+Resolve mutations for :app:createDebugCompatibleScreenManifests (Thread[#4844,Execution worker Thread 7,5,main]) started.
+:app:createDebugCompatibleScreenManifests (Thread[#4844,Execution worker Thread 7,5,main]) started.
+
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+Caching disabled for task ':app:createDebugCompatibleScreenManifests' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:createDebugCompatibleScreenManifests' as it is up-to-date.
+Resolve mutations for :app:extractDeepLinksDebug (Thread[#4844,Execution worker Thread 7,5,main]) started.
+:app:extractDeepLinksDebug (Thread[#4844,Execution worker Thread 7,5,main]) started.
+
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+Caching disabled for task ':app:extractDeepLinksDebug' because:
+  Build cache is disabled
+Skipping task ':app:extractDeepLinksDebug' as it is up-to-date.
+Resolve mutations for :app:processDebugMainManifest (Thread[#4844,Execution worker Thread 7,5,main]) started.
+:app:processDebugMainManifest (Thread[#4844,Execution worker Thread 7,5,main]) started.
+
+> Task :app:processDebugMainManifest
+Caching disabled for task ':app:processDebugMainManifest' because:
+  Build cache is disabled
+Task ':app:processDebugMainManifest' is not up-to-date because:
+  Value of input property 'optionalFeatures' has changed for task ':app:processDebugMainManifest'
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\e71fbd34d4295d42b0bd5381b48cea01\workspace\transformed\viewbinding-8.13.2\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\3aebc6962664e87a2d0b6cf13114fa5a\workspace\transformed\material-1.12.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\20b917d8ec886b082bfa544a29ae74f1\workspace\transformed\constraintlayout-2.2.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\6f7725332159a96b3df3ac77c87c284e\workspace\transformed\appcompat-resources-1.7.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\0e829e84f32ee164b9e8fb2c62ab6ff7\workspace\transformed\appcompat-1.7.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\18d6b3905a2e6640d35246a4b8c83ed8\workspace\transformed\viewpager2-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\be86d95256d84f1cffd447dc426d71dc\workspace\transformed\fragment-1.5.4\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\c034a5b8dedb36abbb79014c7695d9c2\workspace\transformed\activity-1.9.3\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\c8286a233e346c5b09b1d79c0b303cb9\workspace\transformed\swiperefreshlayout-1.1.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\6e286dc4f5fd9c77ba52a6141adf9d25\workspace\transformed\emoji2-views-helper-1.3.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\97df894215936fa541d51153535b4cbc\workspace\transformed\emoji2-1.3.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\639dd2f5c3b42c152cd62c9a5b40ef2a\workspace\transformed\drawerlayout-1.1.1\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\64b7908fd6dfd395ced9ec19988389c6\workspace\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\c87efa3365fb8a28b1fd95f096c69a7d\workspace\transformed\transition-1.5.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\d34ac644cef84bd6de39d037e835e5e7\workspace\transformed\dynamicanimation-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\df2c1829f566cf43bff1c97037d735a1\workspace\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\248f9a976af84d518cbe2be8acbfb719\workspace\transformed\vectordrawable-1.1.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\9883ff588f3a810acf400aa805eda7fb\workspace\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\d4cff7cbb2553677a67f644caa92c9b3\workspace\transformed\loader-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\038abc2e85bbf05dc9a4d717e393b479\workspace\transformed\viewpager-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\f100bc874fcc14ea132527e33b4061cc\workspace\transformed\recyclerview-1.1.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\c8ebcdb39d5cfffec3e4fbedd82b82fd\workspace\transformed\customview-1.1.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\0694c15a3c0d070cecd14fce17e4b7ad\workspace\transformed\core-1.15.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\9f113171a4d16771e8cedcabba11b3a6\workspace\transformed\savedstate-1.2.1\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\762d7013881aedbf7380db5d554c2354\workspace\transformed\lifecycle-livedata-2.6.2\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\8f9b4ace41be530f49e43b245642e286\workspace\transformed\lifecycle-viewmodel-2.6.2\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\105395c489380c610cf911b5d064d17b\workspace\transformed\lifecycle-process-2.6.2\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\a20c8097b38fee41aab4bbbb3441f980\workspace\transformed\lifecycle-livedata-core-2.6.2\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\b68b44332cb8d712af7684057adc669d\workspace\transformed\lifecycle-runtime-2.6.2\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\257796a687c1de4caf23690af3ca865b\workspace\transformed\lifecycle-viewmodel-savedstate-2.6.2\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\cf5c4499594e4a9cad9dcafcc929f7c7\workspace\transformed\core-ktx-1.15.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\05ac4c2d32e0af1708302cadcf738658\workspace\transformed\cursoradapter-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\d706839f11d1757dd7af0a930b437520\workspace\transformed\cardview-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\86335e225735d8db06d140b389af97a3\workspace\transformed\interpolator-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\050ba3c67c339a799f97f0ce20ed4fe7\workspace\transformed\startup-runtime-1.1.1\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\770af60dbaf612771d37ba22020e6c4d\workspace\transformed\tracing-1.2.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\f31e19347aa40e3208e74723dc135dc6\workspace\transformed\versionedparcelable-1.1.1\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\cfe775eed881734f6101b2838713344a\workspace\transformed\core-runtime-2.2.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\b94f499c04adfbed33f911db80508c4f\workspace\transformed\documentfile-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\c952904f588343217b582842f700efaf\workspace\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\61e8fe3f9e0beabc089e06e727a5fd89\workspace\transformed\print-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\0cfce4c6952a5cd378c69e3e0bbab37e\workspace\transformed\annotation-experimental-1.4.1\AndroidManifest.xml
+Merging main manifest C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml
+
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\e71fbd34d4295d42b0bd5381b48cea01\workspace\transformed\viewbinding-8.13.2\AndroidManifest.xml
+Merging manifest with lower [androidx.databinding:viewbinding:8.13.2] AndroidManifest.xml:2:1-7:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.databinding:viewbinding:8.13.2] AndroidManifest.xml:5:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\3aebc6962664e87a2d0b6cf13114fa5a\workspace\transformed\material-1.12.0\AndroidManifest.xml
+Merging manifest with lower [com.google.android.material:material:1.12.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [com.google.android.material:material:1.12.0] AndroidManifest.xml:20:5-44
+application defined in both files...
+Merging application with lower [com.google.android.material:material:1.12.0] AndroidManifest.xml:22:5-20
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\20b917d8ec886b082bfa544a29ae74f1\workspace\transformed\constraintlayout-2.2.0\AndroidManifest.xml
+Merging manifest with lower [androidx.constraintlayout:constraintlayout:2.2.0] AndroidManifest.xml:2:1-9:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.constraintlayout:constraintlayout:2.2.0] AndroidManifest.xml:5:5-44
+application defined in both files...
+Merging application with lower [androidx.constraintlayout:constraintlayout:2.2.0] AndroidManifest.xml:7:5-20
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\6f7725332159a96b3df3ac77c87c284e\workspace\transformed\appcompat-resources-1.7.0\AndroidManifest.xml
+Merging manifest with lower [androidx.appcompat:appcompat-resources:1.7.0] AndroidManifest.xml:2:1-7:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.appcompat:appcompat-resources:1.7.0] AndroidManifest.xml:5:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\0e829e84f32ee164b9e8fb2c62ab6ff7\workspace\transformed\appcompat-1.7.0\AndroidManifest.xml
+Merging manifest with lower [androidx.appcompat:appcompat:1.7.0] AndroidManifest.xml:2:1-7:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.appcompat:appcompat:1.7.0] AndroidManifest.xml:5:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\18d6b3905a2e6640d35246a4b8c83ed8\workspace\transformed\viewpager2-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.viewpager2:viewpager2:1.0.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.viewpager2:viewpager2:1.0.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\be86d95256d84f1cffd447dc426d71dc\workspace\transformed\fragment-1.5.4\AndroidManifest.xml
+Merging manifest with lower [androidx.fragment:fragment:1.5.4] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.fragment:fragment:1.5.4] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\c034a5b8dedb36abbb79014c7695d9c2\workspace\transformed\activity-1.9.3\AndroidManifest.xml
+Merging manifest with lower [androidx.activity:activity:1.9.3] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.activity:activity:1.9.3] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\c8286a233e346c5b09b1d79c0b303cb9\workspace\transformed\swiperefreshlayout-1.1.0\AndroidManifest.xml
+Merging manifest with lower [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\6e286dc4f5fd9c77ba52a6141adf9d25\workspace\transformed\emoji2-views-helper-1.3.0\AndroidManifest.xml
+Merging manifest with lower [androidx.emoji2:emoji2-views-helper:1.3.0] AndroidManifest.xml:2:1-7:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.emoji2:emoji2-views-helper:1.3.0] AndroidManifest.xml:5:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\97df894215936fa541d51153535b4cbc\workspace\transformed\emoji2-1.3.0\AndroidManifest.xml
+Merging manifest with lower [androidx.emoji2:emoji2:1.3.0] AndroidManifest.xml:17:1-35:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.emoji2:emoji2:1.3.0] AndroidManifest.xml:21:5-44
+application defined in both files...
+Merging application with lower [androidx.emoji2:emoji2:1.3.0] AndroidManifest.xml:23:5-33:19
+Adopted [provider: null]
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\639dd2f5c3b42c152cd62c9a5b40ef2a\workspace\transformed\drawerlayout-1.1.1\AndroidManifest.xml
+Merging manifest with lower [androidx.drawerlayout:drawerlayout:1.1.1] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.drawerlayout:drawerlayout:1.1.1] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\64b7908fd6dfd395ced9ec19988389c6\workspace\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml
+Merging manifest with lower [androidx.coordinatorlayout:coordinatorlayout:1.1.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.coordinatorlayout:coordinatorlayout:1.1.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\c87efa3365fb8a28b1fd95f096c69a7d\workspace\transformed\transition-1.5.0\AndroidManifest.xml
+Merging manifest with lower [androidx.transition:transition:1.5.0] AndroidManifest.xml:2:1-7:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.transition:transition:1.5.0] AndroidManifest.xml:5:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\d34ac644cef84bd6de39d037e835e5e7\workspace\transformed\dynamicanimation-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.dynamicanimation:dynamicanimation:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.dynamicanimation:dynamicanimation:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\df2c1829f566cf43bff1c97037d735a1\workspace\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml
+Merging manifest with lower [androidx.vectordrawable:vectordrawable-animated:1.1.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.vectordrawable:vectordrawable-animated:1.1.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\248f9a976af84d518cbe2be8acbfb719\workspace\transformed\vectordrawable-1.1.0\AndroidManifest.xml
+Merging manifest with lower [androidx.vectordrawable:vectordrawable:1.1.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.vectordrawable:vectordrawable:1.1.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\9883ff588f3a810acf400aa805eda7fb\workspace\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.legacy:legacy-support-core-utils:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.legacy:legacy-support-core-utils:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\d4cff7cbb2553677a67f644caa92c9b3\workspace\transformed\loader-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.loader:loader:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.loader:loader:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\038abc2e85bbf05dc9a4d717e393b479\workspace\transformed\viewpager-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.viewpager:viewpager:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.viewpager:viewpager:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\f100bc874fcc14ea132527e33b4061cc\workspace\transformed\recyclerview-1.1.0\AndroidManifest.xml
+Merging manifest with lower [androidx.recyclerview:recyclerview:1.1.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.recyclerview:recyclerview:1.1.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\c8ebcdb39d5cfffec3e4fbedd82b82fd\workspace\transformed\customview-1.1.0\AndroidManifest.xml
+Merging manifest with lower [androidx.customview:customview:1.1.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.customview:customview:1.1.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\0694c15a3c0d070cecd14fce17e4b7ad\workspace\transformed\core-1.15.0\AndroidManifest.xml
+Merging manifest with lower [androidx.core:core:1.15.0] AndroidManifest.xml:17:1-30:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.core:core:1.15.0] AndroidManifest.xml:20:5-44
+Adopted [permission: null]
+Adopted [uses-permission: null]
+application defined in both files...
+Merging application with lower [androidx.core:core:1.15.0] AndroidManifest.xml:28:5-89
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\9f113171a4d16771e8cedcabba11b3a6\workspace\transformed\savedstate-1.2.1\AndroidManifest.xml
+Merging manifest with lower [androidx.savedstate:savedstate:1.2.1] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.savedstate:savedstate:1.2.1] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\762d7013881aedbf7380db5d554c2354\workspace\transformed\lifecycle-livedata-2.6.2\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-livedata:2.6.2] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-livedata:2.6.2] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\8f9b4ace41be530f49e43b245642e286\workspace\transformed\lifecycle-viewmodel-2.6.2\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-viewmodel:2.6.2] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-viewmodel:2.6.2] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\105395c489380c610cf911b5d064d17b\workspace\transformed\lifecycle-process-2.6.2\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-process:2.6.2] AndroidManifest.xml:17:1-35:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-process:2.6.2] AndroidManifest.xml:21:5-44
+application defined in both files...
+Merging application with lower [androidx.lifecycle:lifecycle-process:2.6.2] AndroidManifest.xml:23:5-33:19
+provider#androidx.startup.InitializationProvider defined in both files...
+Merging provider#androidx.startup.InitializationProvider with lower [androidx.lifecycle:lifecycle-process:2.6.2] AndroidManifest.xml:24:9-32:20
+Adopted [meta-data: null]
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\a20c8097b38fee41aab4bbbb3441f980\workspace\transformed\lifecycle-livedata-core-2.6.2\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-livedata-core:2.6.2] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-livedata-core:2.6.2] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\b68b44332cb8d712af7684057adc669d\workspace\transformed\lifecycle-runtime-2.6.2\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-runtime:2.6.2] AndroidManifest.xml:2:1-7:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-runtime:2.6.2] AndroidManifest.xml:5:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\257796a687c1de4caf23690af3ca865b\workspace\transformed\lifecycle-viewmodel-savedstate-2.6.2\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.2] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.2] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\cf5c4499594e4a9cad9dcafcc929f7c7\workspace\transformed\core-ktx-1.15.0\AndroidManifest.xml
+Merging manifest with lower [androidx.core:core-ktx:1.15.0] AndroidManifest.xml:2:1-7:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.core:core-ktx:1.15.0] AndroidManifest.xml:5:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\05ac4c2d32e0af1708302cadcf738658\workspace\transformed\cursoradapter-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.cursoradapter:cursoradapter:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.cursoradapter:cursoradapter:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\d706839f11d1757dd7af0a930b437520\workspace\transformed\cardview-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.cardview:cardview:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.cardview:cardview:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml
+Merging manifest with lower [androidx.profileinstaller:profileinstaller:1.4.0] AndroidManifest.xml:17:1-55:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.profileinstaller:profileinstaller:1.4.0] AndroidManifest.xml:21:5-44
+application defined in both files...
+Merging application with lower [androidx.profileinstaller:profileinstaller:1.4.0] AndroidManifest.xml:23:5-53:19
+provider#androidx.startup.InitializationProvider defined in both files...
+Merging provider#androidx.startup.InitializationProvider with lower [androidx.profileinstaller:profileinstaller:1.4.0] AndroidManifest.xml:24:9-32:20
+Adopted [meta-data: null]
+Adopted [receiver: null]
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\86335e225735d8db06d140b389af97a3\workspace\transformed\interpolator-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.interpolator:interpolator:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.interpolator:interpolator:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\050ba3c67c339a799f97f0ce20ed4fe7\workspace\transformed\startup-runtime-1.1.1\AndroidManifest.xml
+Merging manifest with lower [androidx.startup:startup-runtime:1.1.1] AndroidManifest.xml:17:1-33:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.startup:startup-runtime:1.1.1] AndroidManifest.xml:21:5-23:41
+application defined in both files...
+Merging application with lower [androidx.startup:startup-runtime:1.1.1] AndroidManifest.xml:25:5-31:19
+provider#androidx.startup.InitializationProvider defined in both files...
+Merging provider#androidx.startup.InitializationProvider with lower [androidx.startup:startup-runtime:1.1.1] AndroidManifest.xml:26:9-30:34
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\770af60dbaf612771d37ba22020e6c4d\workspace\transformed\tracing-1.2.0\AndroidManifest.xml
+Merging manifest with lower [androidx.tracing:tracing:1.2.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.tracing:tracing:1.2.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\f31e19347aa40e3208e74723dc135dc6\workspace\transformed\versionedparcelable-1.1.1\AndroidManifest.xml
+Merging manifest with lower [androidx.versionedparcelable:versionedparcelable:1.1.1] AndroidManifest.xml:17:1-27:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.versionedparcelable:versionedparcelable:1.1.1] AndroidManifest.xml:20:5-22:41
+application defined in both files...
+Merging application with lower [androidx.versionedparcelable:versionedparcelable:1.1.1] AndroidManifest.xml:24:5-25:19
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\cfe775eed881734f6101b2838713344a\workspace\transformed\core-runtime-2.2.0\AndroidManifest.xml
+Merging manifest with lower [androidx.arch.core:core-runtime:2.2.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.arch.core:core-runtime:2.2.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\b94f499c04adfbed33f911db80508c4f\workspace\transformed\documentfile-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.documentfile:documentfile:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.documentfile:documentfile:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\c952904f588343217b582842f700efaf\workspace\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\61e8fe3f9e0beabc089e06e727a5fd89\workspace\transformed\print-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.print:print:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.print:print:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\user\.gradle\caches\9.2.1\transforms\0cfce4c6952a5cd378c69e3e0bbab37e\workspace\transformed\annotation-experimental-1.4.1\AndroidManifest.xml
+Merging manifest with lower [androidx.annotation:annotation-experimental:1.4.1] AndroidManifest.xml:2:1-7:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.annotation:annotation-experimental:1.4.1] AndroidManifest.xml:5:5-44
+Merging result: SUCCESS
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.unity"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="35" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+12-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:6:5-80
+12-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:6:22-77
+13    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+13-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:7:5-76
+13-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:7:22-73
+14
+15    <permission
+15-->[androidx.core:core:1.15.0] C:\Users\user\.gradle\caches\9.2.1\transforms\0694c15a3c0d070cecd14fce17e4b7ad\workspace\transformed\core-1.15.0\AndroidManifest.xml:22:5-24:47
+16        android:name="com.example.unity.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+16-->[androidx.core:core:1.15.0] C:\Users\user\.gradle\caches\9.2.1\transforms\0694c15a3c0d070cecd14fce17e4b7ad\workspace\transformed\core-1.15.0\AndroidManifest.xml:23:9-81
+17        android:protectionLevel="signature" />
+17-->[androidx.core:core:1.15.0] C:\Users\user\.gradle\caches\9.2.1\transforms\0694c15a3c0d070cecd14fce17e4b7ad\workspace\transformed\core-1.15.0\AndroidManifest.xml:24:9-44
+18
+19    <uses-permission android:name="com.example.unity.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+19-->[androidx.core:core:1.15.0] C:\Users\user\.gradle\caches\9.2.1\transforms\0694c15a3c0d070cecd14fce17e4b7ad\workspace\transformed\core-1.15.0\AndroidManifest.xml:26:5-97
+19-->[androidx.core:core:1.15.0] C:\Users\user\.gradle\caches\9.2.1\transforms\0694c15a3c0d070cecd14fce17e4b7ad\workspace\transformed\core-1.15.0\AndroidManifest.xml:26:22-94
+20
+21    <application
+21-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:9:5-64:19
+22        android:allowBackup="true"
+22-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:10:9-35
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.15.0] C:\Users\user\.gradle\caches\9.2.1\transforms\0694c15a3c0d070cecd14fce17e4b7ad\workspace\transformed\core-1.15.0\AndroidManifest.xml:28:18-86
+24        android:dataExtractionRules="@xml/data_extraction_rules"
+24-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:11:9-65
+25        android:debuggable="true"
+26        android:extractNativeLibs="false"
+27        android:fullBackupContent="@xml/backup_rules"
+27-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:12:9-54
+28        android:icon="@mipmap/ic_launcher"
+28-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:13:9-43
+29        android:label="@string/app_name"
+29-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:14:9-41
+30        android:roundIcon="@mipmap/ic_launcher_round"
+30-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:15:9-54
+31        android:supportsRtl="true"
+31-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:16:9-35
+32        android:theme="@style/Theme.Unity"
+32-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:17:9-43
+33        android:usesCleartextTraffic="true" >
+33-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:18:9-44
+34        <activity
+34-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:20:9-22:40
+35            android:name="com.example.unity.FriendsActivity"
+35-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:21:13-44
+36            android:exported="false" />
+36-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:22:13-37
+37        <activity
+37-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:24:9-26:40
+38            android:name="com.example.unity.SearchActivity"
+38-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:25:13-43
+39            android:exported="false" />
+39-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:26:13-37
+40        <activity
+40-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:28:9-30:40
+41            android:name="com.example.unity.ChatActivity"
+41-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:29:13-41
+42            android:exported="false" />
+42-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:30:13-37
+43        <activity
+43-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:32:9-35:58
+44            android:name="com.example.unity.EditProfileActivity"
+44-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:33:13-48
+45            android:exported="false"
+45-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:34:13-37
+46            android:windowSoftInputMode="adjustResize" />
+46-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:35:13-55
+47        <activity
+47-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:37:9-39:40
+48            android:name="com.example.unity.AtelierGUIavance"
+48-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:38:13-45
+49            android:exported="false" />
+49-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:39:13-37
+50        <activity
+50-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:41:9-43:40
+51            android:name="com.example.unity.MessagesActivity"
+51-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:42:13-45
+52            android:exported="false" />
+52-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:43:13-37
+53        <activity
+53-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:44:9-46:40
+54            android:name="com.example.unity.ProfileActivity"
+54-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:45:13-44
+55            android:exported="false" />
+55-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:46:13-37
+56        <activity
+56-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:47:9-49:40
+57            android:name="com.example.unity.DashboardActivity"
+57-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:48:13-46
+58            android:exported="false" />
+58-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:49:13-37
+59        <activity
+59-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:50:9-52:40
+60            android:name="com.example.unity.SignUpActivity"
+60-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:51:13-43
+61            android:exported="false" />
+61-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:52:13-37
+62        <activity
+62-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:53:9-55:40
+63            android:name="com.example.unity.FriendSuggestionsActivity"
+63-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:54:13-54
+64            android:exported="false" />
+64-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:55:13-37
+65        <activity
+65-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:56:9-63:20
+66            android:name="com.example.unity.MainActivity"
+66-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:57:13-41
+67            android:exported="true" >
+67-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:58:13-36
+68            <intent-filter>
+68-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:59:13-62:29
+69                <action android:name="android.intent.action.MAIN" />
+69-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:60:17-69
+69-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:60:25-66
+70
+71                <category android:name="android.intent.category.LAUNCHER" />
+71-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:61:17-77
+71-->C:\Users\user\AndroidStudioProjects\Unity\app\src\main\AndroidManifest.xml:61:27-74
+72            </intent-filter>
+73        </activity>
+74
+75        <provider
+75-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\9.2.1\transforms\97df894215936fa541d51153535b4cbc\workspace\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+76            android:name="androidx.startup.InitializationProvider"
+76-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\9.2.1\transforms\97df894215936fa541d51153535b4cbc\workspace\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+77            android:authorities="com.example.unity.androidx-startup"
+77-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\9.2.1\transforms\97df894215936fa541d51153535b4cbc\workspace\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+78            android:exported="false" >
+78-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\9.2.1\transforms\97df894215936fa541d51153535b4cbc\workspace\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+79            <meta-data
+79-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\9.2.1\transforms\97df894215936fa541d51153535b4cbc\workspace\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+80                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+80-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\9.2.1\transforms\97df894215936fa541d51153535b4cbc\workspace\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+81                android:value="androidx.startup" />
+81-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\9.2.1\transforms\97df894215936fa541d51153535b4cbc\workspace\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+82            <meta-data
+82-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\user\.gradle\caches\9.2.1\transforms\105395c489380c610cf911b5d064d17b\workspace\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+83                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+83-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\user\.gradle\caches\9.2.1\transforms\105395c489380c610cf911b5d064d17b\workspace\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+84                android:value="androidx.startup" />
+84-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\user\.gradle\caches\9.2.1\transforms\105395c489380c610cf911b5d064d17b\workspace\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+85            <meta-data
+85-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
+86                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+86-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
+87                android:value="androidx.startup" />
+87-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
+88        </provider>
+89
+90        <receiver
+90-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
+91            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+91-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
+92            android:directBootAware="false"
+92-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
+93            android:enabled="true"
+93-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
+94            android:exported="true"
+94-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
+95            android:permission="android.permission.DUMP" >
+95-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
+96            <intent-filter>
+96-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
+97                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+97-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
+97-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
+98            </intent-filter>
+99            <intent-filter>
+99-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
+100                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+100-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
+100-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
+101            </intent-filter>
+102            <intent-filter>
+102-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
+103                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+103-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
+103-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
+104            </intent-filter>
+105            <intent-filter>
+105-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
+106                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+106-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
+106-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\9.2.1\transforms\8910378901c28f9c74b9c5509191e395\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
+107            </intent-filter>
+108        </receiver>
+109    </application>
+110
+111</manifest>
+
+Merged manifest saved to C:\Users\user\AndroidStudioProjects\Unity\app\build\intermediates\merged_manifest\debug\processDebugMainManifest\AndroidManifest.xml
+Resolve mutations for :app:processDebugManifest (Thread[#4844,Execution worker Thread 7,5,main]) started.
+:app:processDebugManifest (Thread[#4844,Execution worker Thread 7,5,main]) started.
+
+> Task :app:processDebugManifest
+Caching disabled for task ':app:processDebugManifest' because:
+  Build cache is disabled
+Task ':app:processDebugManifest' is not up-to-date because:
+  Input property 'mainMergedManifest' file C:\Users\user\AndroidStudioProjects\Unity\app\build\intermediates\merged_manifest\debug\processDebugMainManifest\AndroidManifest.xml has changed.
+Resolve mutations for :app:processDebugManifestForPackage (Thread[#4844,Execution worker Thread 7,5,main]) started.
+:app:processDebugManifestForPackage (Thread[#4844,Execution worker Thread 7,5,main]) started.
+Resolve mutations for :app:javaPreCompileDebug (Thread[#4839,Execution worker Thread 2,5,main]) started.
+:app:javaPreCompileDebug (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:javaPreCompileDebug UP-TO-DATE
+Caching disabled for task ':app:javaPreCompileDebug' because:
+  Build cache is disabled
+Skipping task ':app:javaPreCompileDebug' as it is up-to-date.
+Resolve mutations for :app:mergeDebugShaders (Thread[#4839,Execution worker Thread 2,5,main]) started.
+:app:mergeDebugShaders (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:mergeDebugShaders UP-TO-DATE
+Caching disabled for task ':app:mergeDebugShaders' because:
+  Build cache is disabled
+  Simple merging task
+Skipping task ':app:mergeDebugShaders' as it is up-to-date.
+Resolve mutations for :app:compileDebugShaders (Thread[#4839,Execution worker Thread 2,5,main]) started.
+:app:compileDebugShaders (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:compileDebugShaders NO-SOURCE
+Skipping task ':app:compileDebugShaders' as it has no source files and no previous output files.
+Resolve mutations for :app:generateDebugAssets (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:processDebugManifestForPackage
+Custom actions are attached to task ':app:processDebugManifestForPackage'.
+Caching disabled for task ':app:processDebugManifestForPackage' because:
+  Build cache is disabled
+Task ':app:processDebugManifestForPackage' is not up-to-date because:
+  Input property 'mergedManifests' file C:\Users\user\AndroidStudioProjects\Unity\app\build\intermediates\merged_manifests\debug\processDebugManifest\AndroidManifest.xml has changed.
+Resolve mutations for :app:processDebugResources (Thread[#4844,Execution worker Thread 7,5,main]) started.
+:app:processDebugResources (Thread[#4844,Execution worker Thread 7,5,main]) started.
+:app:generateDebugAssets (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:generateDebugAssets UP-TO-DATE
+Skipping task ':app:generateDebugAssets' as it has no actions.
+Resolve mutations for :app:mergeDebugAssets (Thread[#4839,Execution worker Thread 2,5,main]) started.
+:app:mergeDebugAssets (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:mergeDebugAssets UP-TO-DATE
+Caching disabled for task ':app:mergeDebugAssets' because:
+  Build cache is disabled
+  Simple merging task
+Skipping task ':app:mergeDebugAssets' as it is up-to-date.
+Resolve mutations for :app:compressDebugAssets (Thread[#4839,Execution worker Thread 2,5,main]) started.
+:app:compressDebugAssets (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:compressDebugAssets UP-TO-DATE
+Caching disabled for task ':app:compressDebugAssets' because:
+  Build cache is disabled
+Skipping task ':app:compressDebugAssets' as it is up-to-date.
+Resolve mutations for :app:checkDebugDuplicateClasses (Thread[#4839,Execution worker Thread 2,5,main]) started.
+:app:checkDebugDuplicateClasses (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+Caching disabled for task ':app:checkDebugDuplicateClasses' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:checkDebugDuplicateClasses' as it is up-to-date.
+Resolve mutations for :app:desugarDebugFileDependencies (Thread[#4839,Execution worker Thread 2,5,main]) started.
+:app:desugarDebugFileDependencies (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+Caching disabled for task ':app:desugarDebugFileDependencies' because:
+  Build cache is disabled
+Skipping task ':app:desugarDebugFileDependencies' as it is up-to-date.
+Resolve mutations for :app:mergeExtDexDebug (Thread[#4839,Execution worker Thread 2,5,main]) started.
+:app:mergeExtDexDebug (Thread[#4839,Execution worker Thread 2,5,main]) started.
+
+> Task :app:mergeExtDexDebug UP-TO-DATE
+Caching disabled for task ':app:mergeExtDexDebug' because:
+  Build cache is disabled
+Skipping task ':app:mergeExtDexDebug' as it is up-to-date.
+Resolve mutations for :app:mergeLibDexDebug (Thread[#4838,Execution worker,5,main]) started.
+:app:mergeLibDexDebug (Thread[#4838,Execution worker,5,main]) started.
+
+> Task :app:mergeLibDexDebug UP-TO-DATE
+Caching disabled for task ':app:mergeLibDexDebug' because:
+  Build cache is disabled
+  Gradle does not know how file 'build\intermediates\dex\debug\mergeLibDexDebug\9' was created (output property 'outputDir'). Task output caching requires exclusive access to output paths to guarantee correctness (i.e. multiple tasks are not allowed to produce output in the same location).
+Skipping task ':app:mergeLibDexDebug' as it is up-to-date.
+Resolve mutations for :app:mergeDebugJniLibFolders (Thread[#4838,Execution worker,5,main]) started.
+:app:mergeDebugJniLibFolders (Thread[#4838,Execution worker,5,main]) started.
+
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+Caching disabled for task ':app:mergeDebugJniLibFolders' because:
+  Build cache is disabled
+  Simple merging task
+Skipping task ':app:mergeDebugJniLibFolders' as it is up-to-date.
+Resolve mutations for :app:mergeDebugNativeLibs (Thread[#4838,Execution worker,5,main]) started.
+:app:mergeDebugNativeLibs (Thread[#4838,Execution worker,5,main]) started.
+
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+Skipping task ':app:mergeDebugNativeLibs' as it has no source files and no previous output files.
+Resolve mutations for :app:stripDebugDebugSymbols (Thread[#4838,Execution worker,5,main]) started.
+:app:stripDebugDebugSymbols (Thread[#4838,Execution worker,5,main]) started.
+
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+Skipping task ':app:stripDebugDebugSymbols' as it has no source files and no previous output files.
+Resolve mutations for :app:validateSigningDebug (Thread[#4838,Execution worker,5,main]) started.
+:app:validateSigningDebug (Thread[#4838,Execution worker,5,main]) started.
+
+> Task :app:validateSigningDebug UP-TO-DATE
+Caching disabled for task ':app:validateSigningDebug' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:validateSigningDebug' as it is up-to-date.
+Resolve mutations for :app:writeDebugAppMetadata (Thread[#4838,Execution worker,5,main]) started.
+:app:writeDebugAppMetadata (Thread[#4838,Execution worker,5,main]) started.
+
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+Caching disabled for task ':app:writeDebugAppMetadata' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:writeDebugAppMetadata' as it is up-to-date.
+Resolve mutations for :app:writeDebugSigningConfigVersions (Thread[#4838,Execution worker,5,main]) started.
+:app:writeDebugSigningConfigVersions (Thread[#4838,Execution worker,5,main]) started.
+
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+Caching disabled for task ':app:writeDebugSigningConfigVersions' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:writeDebugSigningConfigVersions' as it is up-to-date.
+
+> Task :app:processDebugResources
+Caching disabled for task ':app:processDebugResources' because:
+  Build cache is disabled
+Task ':app:processDebugResources' is not up-to-date because:
+  Value of input property 'useStableIds' has changed for task ':app:processDebugResources'
+The input changes require a full rebuild for incremental task ':app:processDebugResources'.
+AAPT2 aapt2-8.13.2-14304508-windows Daemon #0: starting
+Aapt output file C:\Users\user\AndroidStudioProjects\Unity\app\build\intermediates\linked_resources_binary_format\debug\processDebugResources\linked-resources-binary-format-debug.ap_
+Resolve mutations for :app:compileDebugKotlin (Thread[#4844,Execution worker Thread 7,5,main]) started.
+:app:compileDebugKotlin (Thread[#4844,Execution worker Thread 7,5,main]) started.
+
+> Task :app:compileDebugKotlin
+Adding -Xuse-inline-scopes-numbers Kotlin compiler flag for task :app:compileDebugAndroidTestKotlin
+GradleBuildProject.Builder should not be accessed through AnalyticsConfiguratorService after AnalyticsService is created. Analytics information of this build might be incomplete.
+Caching disabled for task ':app:compileDebugKotlin' because:
+  Build cache is disabled
+Task ':app:compileDebugKotlin' is not up-to-date because:
+  Task has failed previously.
+The input changes require a full rebuild for incremental task ':app:compileDebugKotlin'.
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\main\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\main\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\main\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\main\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\main\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\main\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\main\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\main\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\main\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\main\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\main\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\main\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\main\kotlin', not found
+file or directory 'C:\Users\user\AndroidStudioProjects\Unity\app\src\debug\java', not found
+Kotlin source files: C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\ApiService.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\AppDatabase.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\AtelierGUIavance.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\ChatActivity.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\ConversationAdapter.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\ConversationResponse.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\DashboardActivity.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\EditProfileActivity.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\FriendAdapter.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\FriendsActivity.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\FriendSuggestionsActivity.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\FriendSuggestionsAdapter.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\MainActivity.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\MessageAdapter.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\MessagesActivity.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\NetworkModels.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\Post.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\PostAdapter.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\PostModels.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\ProfileActivity.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\RetrofitClient.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\SearchActivity.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\SessionManager.kt, C:\Users\user\AndroidStudioProjects\Unity\app\src\main\java\com\example\unity\SignUpActivity.kt
+Java source files: C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ActivityAtelierGuiavanceBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ActivityChatBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ActivityDashboardBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ActivityEditProfileBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ActivityFriendsBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ActivityFriendSuggestionsBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ActivityMainBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ActivityMessagesBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ActivityProfileBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ActivitySearchBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ActivitySignupBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\DialogBlockedUsersBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\DialogChangePasswordBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\DialogEditProfileBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\DialogHelpCenterBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ItemConversationBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ItemFriendBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ItemFriendSuggestionBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ItemMessageLeftBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ItemMessageRightBinding.java, C:\Users\user\AndroidStudioProjects\Unity\app\build\generated\data_binding_base_class_source_out\debug\out\com\example\unity\databinding\ItemPostBinding.java
+Script source files: 
+Script file extensions: 
+Using Kotlin/JVM incremental compilation
+[KOTLIN] Kotlin compilation 'jdkHome' argument: null
+Options for KOTLIN DAEMON: IncrementalCompilationOptions(super=CompilationOptions(compilerMode=INCREMENTAL_COMPILER, targetPlatform=JVM, reportCategories=[0, 3], reportSeverity=2, requestedCompilationResults=[0], kotlinScriptExtensions=[]), areFileChangesKnown=false, modifiedFiles=null, deletedFiles=null, classpathChanges=NotAvailableForNonIncrementalRun, workingDir=C:\Users\user\AndroidStudioProjects\Unity\app\build\kotlin\compileDebugKotlin\cacheable, multiModuleICSettings=MultiModuleICSettings(buildHistoryFile=C:\Users\user\AndroidStudioProjects\Unity\app\build\kotlin\compileDebugKotlin\local-state\build-history.bin, useModuleDetection=true), usePreciseJavaTracking=true, icFeatures=IncrementalCompilationFeatures(withAbiSnapshot=false, preciseCompilationResultsBackup=true, keepIncrementalCompilationCachesInMemory=true, enableUnsafeIncrementalCompilationForMultiplatform=false), outputFiles=[C:\Users\user\AndroidStudioProjects\Unity\app\build\tmp\kotlin-classes\debug, C:\Users\user\AndroidStudioProjects\Unity\app\build\kotlin\compileDebugKotlin\cacheable, C:\Users\user\AndroidStudioProjects\Unity\app\build\kotlin\compileDebugKotlin\local-state])
+e: file:///C:/Users/user/AndroidStudioProjects/Unity/app/src/main/java/com/example/unity/FriendSuggestionsActivity.kt:133:83 Argument type mismatch: actual type is 'com.example.unity.FriendActionRequest', but 'kotlin.collections.Map<kotlin.String, kotlin.Int>' was expected.
+e: file:///C:/Users/user/AndroidStudioProjects/Unity/app/src/main/java/com/example/unity/SearchActivity.kt:49:82 Argument type mismatch: actual type is 'com.example.unity.FriendActionRequest', but 'kotlin.collections.Map<kotlin.String, kotlin.Int>' was expected.
+Finished executing kotlin compiler using DAEMON strategy
+
+> Task :app:compileDebugKotlin FAILED
+AAPT2 aapt2-8.13.2-14304508-windows Daemon #0: shutdown
+
+
+[Incubating] Problems report is available at: file:///C:/Users/user/AndroidStudioProjects/Unity/build/reports/problems/problems-report.html
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --debug option to get more log output.
+> Run with --scan to generate a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 11s
+30 actionable tasks: 5 executed, 25 up-to-date
+Watched directory hierarchies: [C:\Users\user\AndroidStudioProjects\Unity]
