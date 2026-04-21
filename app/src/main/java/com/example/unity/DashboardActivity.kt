@@ -7,20 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -47,7 +43,6 @@ class DashboardActivity : AppCompatActivity() {
         val etNewPost = findViewById<EditText>(R.id.etNewPost)
         val btnPublish = findViewById<Button>(R.id.btnPublish)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
-        val btnFriendSuggestions = findViewById<Button>(R.id.btnFriendSuggestions)
 
         fetchUserProfile(tvTopUsername, tvWelcome)
         loadPostsFromServer()
@@ -59,10 +54,6 @@ class DashboardActivity : AppCompatActivity() {
 
         swipeRefresh.setOnRefreshListener {
             loadPostsFromServer()
-        }
-
-        btnFriendSuggestions?.setOnClickListener {
-            startActivity(Intent(this, FriendSuggestionsActivity::class.java))
         }
 
         // --- BOUTON PUBLIER ---
