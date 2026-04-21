@@ -18,10 +18,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // --- VÉRIFICATION DES DONNÉES AU DÉMARRAGE ---
         val db = AppDatabase(this)
         db.debugLogDatabase()
-        // ----------------------------------------------
 
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
@@ -46,9 +44,6 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            Log.d("LOGIN_TEST", "Tentative de connexion pour : $email")
-            Toast.makeText(this, "Connexion en cours...", Toast.LENGTH_SHORT).show()
-
             lifecycleScope.launch {
                 try {
                     val loginRequest = LoginRequest(email, password)
@@ -56,17 +51,17 @@ class MainActivity : AppCompatActivity() {
 
                     if (response.isSuccessful && response.body() != null) {
                         val loginResponse = response.body()!!
+                        
+                        // --- SAUVEGARDE CRUCIALE ---
                         sessionManager.saveAuthToken(loginResponse.token)
-                        // Sauvegarde de l'ID utilisateur pour les messages
-                        loginResponse.user.id?.let { id -> sessionManager.saveUserId(id) }
+                        loginResponse.user.id?.let { sessionManager.saveUserId(it) }
                         
                         val intent = Intent(this@MainActivity, DashboardActivity::class.java)
                         intent.putExtra("USER_EMAIL", email)
                         startActivity(intent)
                         finish()
                     } else {
-                        val errorMsg = response.errorBody()?.string() ?: "Identifiants incorrects"
-                        Toast.makeText(this@MainActivity, "Erreur : $errorMsg", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@MainActivity, "Identifiants incorrects", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: Exception) {
                     Toast.makeText(this@MainActivity, "Erreur de connexion au serveur", Toast.LENGTH_LONG).show()

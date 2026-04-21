@@ -15,8 +15,10 @@
 > Task :app:mapDebugSourceSetPaths UP-TO-DATE
 > Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
 > Task :app:extractDeepLinksDebug UP-TO-DATE
-> Task :app:processDebugMainManifest
-> Task :app:processDebugManifest
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
 > Task :app:javaPreCompileDebug UP-TO-DATE
 > Task :app:mergeDebugShaders UP-TO-DATE
 > Task :app:compileDebugShaders NO-SOURCE
@@ -33,11 +35,14 @@
 > Task :app:validateSigningDebug UP-TO-DATE
 > Task :app:writeDebugAppMetadata UP-TO-DATE
 > Task :app:writeDebugSigningConfigVersions UP-TO-DATE
-> Task :app:processDebugManifestForPackage
-> Task :app:processDebugResources
 
 > Task :app:compileDebugKotlin FAILED
-e: file:///C:/Users/user/AndroidStudioProjects/Unity/app/src/main/java/com/example/unity/ProfileActivity.kt:110:9 Unresolved reference 'lifecycleScope'.
+e: file:///C:/Users/user/AndroidStudioProjects/Unity/app/src/main/java/com/example/unity/NetworkModels.kt:147:12 Redeclaration:
+data class CreateGroupRequest : Any
+e: file:///C:/Users/user/AndroidStudioProjects/Unity/app/src/main/java/com/example/unity/NetworkModels.kt:153:12 Redeclaration:
+data class CreateGroupRequest : Any
+e: file:///C:/Users/user/AndroidStudioProjects/Unity/app/src/main/java/com/example/unity/ProfileActivity.kt:143:21 Unresolved reference 'Toast'.
+e: file:///C:/Users/user/AndroidStudioProjects/Unity/app/src/main/java/com/example/unity/ProfileActivity.kt:143:122 Unresolved reference 'Toast'.
 
 [Incubating] Problems report is available at: file:///C:/Users/user/AndroidStudioProjects/Unity/build/reports/problems/problems-report.html
 
@@ -52,13 +57,13 @@ Execution failed for task ':app:compileDebugKotlin'.
 > Run with --stacktrace option to get the stack trace.
 > Run with --info or --debug option to get more log output.
 > Run with --scan to generate a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
 
 You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
 
-> Get more help at https://help.gradle.org.
 For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 5s
-30 actionable tasks: 5 executed, 25 up-to-date
+BUILD FAILED in 2s
+30 actionable tasks: 1 executed, 29 up-to-date

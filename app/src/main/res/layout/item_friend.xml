@@ -55,6 +55,22 @@
         tools:text="@johndoe" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSecondaryAction"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Refuser"
+        android:textSize="12sp"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        app:backgroundTint="#FFEBEE"
+        android:textColor="#D32F2F"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnAction"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAction"
         style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="wrap_content"

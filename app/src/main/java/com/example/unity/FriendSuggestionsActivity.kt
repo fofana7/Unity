@@ -35,23 +35,22 @@ class FriendSuggestionsActivity : AppCompatActivity() {
 
         sessionManager = SessionManager(this)
         
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.topBar)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
-            insets
+        val topBar = findViewById<View>(R.id.topBar)
+        if (topBar != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(topBar) { v, insets ->
+                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+                insets
+            }
         }
 
-        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
-            finish()
-        }
+        findViewById<ImageButton>(R.id.btnBack)?.setOnClickListener { finish() }
 
         progressBar = findViewById(R.id.progressBar)
         tvEmpty = findViewById(R.id.tvEmpty)
         rvSuggestions = findViewById(R.id.rvSuggestions)
 
-        adapter = FriendSuggestionsAdapter(emptyList()) { user ->
-            addFriend(user)
-        }
+        adapter = FriendSuggestionsAdapter(emptyList()) { user -> addFriend(user) }
         rvSuggestions.layoutManager = LinearLayoutManager(this)
         rvSuggestions.adapter = adapter
 
@@ -60,36 +59,21 @@ class FriendSuggestionsActivity : AppCompatActivity() {
 
     private fun fetchData() {
         val token = sessionManager.fetchAuthToken() ?: return
-
         progressBar.visibility = View.VISIBLE
-        tvEmpty.visibility = View.GONE
-        rvSuggestions.visibility = View.GONE
 
         lifecycleScope.launch {
             try {
-                // Récupération de l'utilisateur actuel
-                val meResponse = RetrofitClient.instance.getMe("Bearer $token")
-                if (meResponse.isSuccessful) {
-                    currentUser = meResponse.body()?.user
-                }
+                val meRes = RetrofitClient.instance.getMe("Bearer $token")
+                if (meRes.isSuccessful) currentUser = meRes.body()?.user
 
-                // Récupération des amis actuels
-                val friendsResponse = RetrofitClient.instance.getMyFriends("Bearer $token")
-                if (friendsResponse.isSuccessful) {
-                    myFriends = friendsResponse.body() ?: emptyList()
-                }
+                val friendsRes = RetrofitClient.instance.getMyFriends("Bearer $token")
+                if (friendsRes.isSuccessful) myFriends = friendsRes.body() ?: emptyList()
 
-                // Récupération de tous les utilisateurs (amis potentiels)
-                val allUsersResponse = RetrofitClient.instance.getAllUsers("Bearer $token")
-                if (allUsersResponse.isSuccessful) {
-                    allUsers = allUsersResponse.body() ?: emptyList()
-                }
+                val allUsersRes = RetrofitClient.instance.getAllUsers("Bearer $token")
+                if (allUsersRes.isSuccessful) allUsers = allUsersRes.body() ?: emptyList()
 
                 filterAndDisplaySuggestions()
-
             } catch (e: Exception) {
-                Log.e("SUGGESTIONS", "Erreur réseau", e)
-                Toast.makeText(this@FriendSuggestionsActivity, "Erreur réseau", Toast.LENGTH_SHORT).show()
                 progressBar.visibility = View.GONE
                 tvEmpty.visibility = View.VISIBLE
             }
@@ -98,14 +82,10 @@ class FriendSuggestionsActivity : AppCompatActivity() {
 
     private fun filterAndDisplaySuggestions() {
         progressBar.visibility = View.GONE
-        
         val friendIds = myFriends.mapNotNull { it.id }.toSet()
         val currentUserId = currentUser?.id
 
-        // On exclut l'utilisateur courant et ses amis déjà existants
-        val suggestions = allUsers.filter { user ->
-            user.id != null && user.id != currentUserId && !friendIds.contains(user.id)
-        }
+        val suggestions = allUsers.filter { it.id != null && it.id != currentUserId && !friendIds.contains(it.id) }
 
         if (suggestions.isEmpty()) {
             tvEmpty.visibility = View.VISIBLE
@@ -119,35 +99,19 @@ class FriendSuggestionsActivity : AppCompatActivity() {
 
     private fun addFriend(user: UserResponse) {
         val token = sessionManager.fetchAuthToken() ?: return
-        val currentUserId = currentUser?.id ?: return
+        val myId = currentUser?.id ?: return
         
-        progressBar.visibility = View.VISIBLE
-
         lifecycleScope.launch {
             try {
-                val req = FriendActionRequest(
-                    friendId = user.id,
-                    requesterId = currentUserId,
-                    status = "pending"
-                )
+                // Utilisation correcte de FriendActionRequest au lieu d'une Map
+                val req = FriendActionRequest(friendId = user.id, requesterId = myId, status = "pending")
                 val response = RetrofitClient.instance.addFriend("Bearer $token", req)
-                progressBar.visibility = View.GONE
+                
                 if (response.isSuccessful) {
-                    Toast.makeText(this@FriendSuggestionsActivity, "Demande envoyée à ${user.username}", Toast.LENGTH_SHORT).show()
-                    
-                    // On retire l'utilisateur de la liste après l'ajout réussi
-                    val updatedList = adapter.getCurrentUsers().filter { it.id != user.id }
-                    adapter.updateUsers(updatedList)
-                    
-                    if (updatedList.isEmpty()) {
-                        tvEmpty.visibility = View.VISIBLE
-                        rvSuggestions.visibility = View.GONE
-                    }
-                } else {
-                    Toast.makeText(this@FriendSuggestionsActivity, "Erreur lors de l'envoi", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@FriendSuggestionsActivity, "Demande envoyée !", Toast.LENGTH_SHORT).show()
+                    fetchData()
                 }
             } catch (e: Exception) {
-                progressBar.visibility = View.GONE
                 Toast.makeText(this@FriendSuggestionsActivity, "Erreur réseau", Toast.LENGTH_SHORT).show()
             }
         }

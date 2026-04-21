@@ -16,8 +16,10 @@ data class Conversation(
     val type: ConversationType = ConversationType.PRIVATE
 )
 
-class ConversationAdapter(private var conversations: List<Conversation>) :
-    RecyclerView.Adapter<ConversationAdapter.ViewHolder>() {
+class ConversationAdapter(
+    private var conversations: List<Conversation>,
+    private val onConversationClick: (Conversation) -> Unit
+) : RecyclerView.Adapter<ConversationAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvUserName: TextView = view.findViewById(R.id.tvUserName)
@@ -47,6 +49,10 @@ class ConversationAdapter(private var conversations: List<Conversation>) :
         } else {
             holder.ivAvatar.setBackgroundResource(R.drawable.rounded_accent_purple)
             holder.ivAvatar.backgroundTintList = null // Violet par défaut pour le privé
+        }
+
+        holder.itemView.setOnClickListener {
+            onConversationClick(conversation)
         }
     }
 

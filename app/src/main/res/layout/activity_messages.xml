@@ -58,6 +58,21 @@
         app:layout_constraintTop_toBottomOf="@id/topBar"
         tools:listitem="@layout/item_conversation" />
 
+    <TextView
+        android:id="@+id/tvEmptyConversations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:lineSpacingExtra="6dp"
+        android:text="Aucune conversation"
+        android:textColor="@color/unity_muted"
+        android:textSize="15sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabNewMessage"
         android:layout_width="wrap_content"

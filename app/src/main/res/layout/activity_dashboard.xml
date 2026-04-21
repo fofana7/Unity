@@ -54,6 +54,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tvNotifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="🔔"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnLogout"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/tvTopUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +74,7 @@
             android:textColor="@color/unity_accent"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnLogout"
+            app:layout_constraintEnd_toStartOf="@id/tvNotifications"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -208,12 +220,13 @@
                         android:background="@color/unity_accent_muted" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/llFeed"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvFeed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:orientation="vertical" />
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_post" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

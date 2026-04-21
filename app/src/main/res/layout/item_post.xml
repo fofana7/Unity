@@ -70,6 +70,17 @@
                 android:text="1m"
                 android:textColor="@color/unity_muted"
                 android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/ivOptions"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="6dp"
+                android:src="@android:drawable/ic_menu_manage"
+                app:tint="@color/unity_muted"
+                android:visibility="gone" />
         </LinearLayout>
 
         <!-- Content -->
