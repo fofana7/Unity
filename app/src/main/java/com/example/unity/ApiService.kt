@@ -1,5 +1,6 @@
 package com.example.unity
 
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -27,6 +28,13 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Body body: UserResponse
     ): Response<UserWrapper>
+
+    @Multipart
+    @PUT("users/me/avatar")
+    suspend fun uploadAvatar(
+        @Header("Authorization") token: String,
+        @Part avatar: okhttp3.MultipartBody.Part
+    ): Response<Map<String, String>>
 
     @DELETE("users/me")
     suspend fun deleteMe(@Header("Authorization") token: String): Response<Void>
@@ -60,7 +68,7 @@ interface ApiService {
         @Body body: FriendActionRequest
     ): Response<Void>
 
-    @POST("ami/decline")
+    @POST("ami/reject")
     suspend fun declineFriend(
         @Header("Authorization") token: String,
         @Body body: FriendActionRequest
@@ -83,13 +91,13 @@ interface ApiService {
     suspend fun getGroupMessages(
         @Header("Authorization") token: String,
         @Path("groupId") groupId: Int
-    ): Response<List<Message>>
+    ): Response<List<GroupMessageResponse>>
 
     @POST("messages/group/send")
     suspend fun sendGroupMessage(
         @Header("Authorization") token: String,
-        @Body body: Message
-    ): Response<Message>
+        @Body body: SendMessageRequest
+    ): Response<GroupMessageResponse>
 
     // --- POSTS ---
     @GET("posts/timeline")
@@ -126,6 +134,12 @@ interface ApiService {
         @Path("id") postId: Int,
         @Body body: Map<String, String>
     ): Response<Void>
+
+    @GET("posts/{id}/comments")
+    suspend fun getComments(
+        @Header("Authorization") token: String,
+        @Path("id") postId: Int
+    ): Response<List<CommentResponse>>
 
     // --- CONVERSATIONS ---
     @GET("messages/conversations")

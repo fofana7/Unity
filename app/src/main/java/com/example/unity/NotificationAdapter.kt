@@ -54,6 +54,14 @@ class NotificationAdapter(private var notifications: List<NotificationItem>) :
                     tvContent.text = "$name vous a envoyé une demande d'ami."
                     ivTypeIcon.setImageResource(android.R.drawable.ic_menu_add)
                 }
+                "friend_accepted" -> {
+                    tvContent.text = "$name a accepté votre demande d'ami."
+                    ivTypeIcon.setImageResource(android.R.drawable.checkbox_on_background)
+                }
+                "friend_rejected" -> {
+                    tvContent.text = "$name a refusé votre demande d'ami."
+                    ivTypeIcon.setImageResource(android.R.drawable.ic_delete)
+                }
                 "photo_post" -> {
                     tvContent.text = "$name a publié une nouvelle photo."
                     ivTypeIcon.setImageResource(android.R.drawable.ic_menu_camera)

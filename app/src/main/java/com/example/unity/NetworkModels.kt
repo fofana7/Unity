@@ -19,8 +19,8 @@ data class RegisterRequest(
     @SerializedName("email") val email: String,
     @SerializedName("password") val password: String,
     @SerializedName("username") val username: String,
-    @SerializedName("firstname") val firstName: String,
-    @SerializedName("lastname") val lastName: String,
+    @SerializedName("prenom") val firstName: String,
+    @SerializedName("nom") val lastName: String,
     @SerializedName("role") val role: String,
     @SerializedName("classe") val classe: String? = null
 )
@@ -46,8 +46,8 @@ data class UserResponse(
     @SerializedName("bio") val bio: String? = null,
     @SerializedName("avatarurl") val avatarUrl: String? = null,
     @SerializedName("classe") val classe: String? = null,
-    @SerializedName("friends_count") val friendsCount: Int = 0,
-    @SerializedName("posts_count") val postsCount: Int = 0
+    @SerializedName("friendsCount") val friendsCount: Int = 0,
+    @SerializedName("postsCount") val postsCount: Int = 0
 )
 
 // --- CHAT & MESSAGES ---
@@ -58,15 +58,36 @@ data class SendMessageRequest(
     @SerializedName("content") val content: String
 )
 
+data class CreateGroupRequest(
+    @SerializedName("name") val name: String,
+    @SerializedName("description") val description: String? = null, // Champ rajouté
+    @SerializedName("memberIds") val memberIds: List<Int>
+)
+
 data class Message(
     @SerializedName("id") val id: Int? = null,
     @SerializedName("sender_id") val senderId: Int,
     @SerializedName("receiver_id") val receiverId: Int? = null,
     @SerializedName("group_id") val groupId: Int? = null,
     @SerializedName("content") val content: String,
-    @SerializedName("timestamp") val timestamp: String? = null,
+    @SerializedName("created_at") val timestamp: String? = null,
     var isMe: Boolean = false
 )
+
+data class GroupMessageResponse(
+    @SerializedName("id") val id: Int = 0,
+    @SerializedName("sender_id") val senderId: Int = 0,
+    @SerializedName("content") val content: String = "",
+    @SerializedName("created_at") val createdAt: String = "",
+    @SerializedName("username") val username: String? = null,
+    @SerializedName("first_name") val firstName: String? = null,
+    @SerializedName("last_name") val lastName: String? = null
+) {
+    fun displayName(): String {
+        val full = listOfNotNull(firstName, lastName).joinToString(" ").trim()
+        return full.ifEmpty { username ?: "Utilisateur" }
+    }
+}
 
 data class ConversationResponse(
     @SerializedName("other_user_id") val otherUserId: Int? = null,
@@ -144,8 +165,18 @@ data class CreatePostRequest(
     @SerializedName("image_url") val imageUrl: String? = null
 )
 
-data class CreateGroupRequest(
-    @SerializedName("name") val name: String,
-    @SerializedName("description") val description: String? = null,
-    @SerializedName("memberIds") val memberIds: List<Int>
-)
+data class CommentResponse(
+    @SerializedName("id") val id: Int = 0,
+    @SerializedName("content") val content: String = "",
+    @SerializedName("user_id") val userId: Int = 0,
+    @SerializedName("username") val username: String? = null,
+    @SerializedName("first_name") val firstName: String? = null,
+    @SerializedName("last_name") val lastName: String? = null,
+    @SerializedName("avatarurl") val avatarUrl: String? = null,
+    @SerializedName("created_at") val createdAt: String = ""
+) {
+    fun displayName(): String {
+        val full = listOfNotNull(firstName, lastName).joinToString(" ").trim()
+        return full.ifEmpty { username ?: "Utilisateur" }
+    }
+}

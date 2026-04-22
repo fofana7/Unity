@@ -68,9 +68,10 @@ class MessagesActivity : AppCompatActivity() {
         })
 
         // Bouton "+" pour une nouvelle conversation
-        findViewById<View>(R.id.fabNewMessage).setOnClickListener {
+        val fabNew = findViewById<View>(R.id.fabNewMessage)
+        fabNew.setOnClickListener {
             if (currentType == ConversationType.GROUP) {
-                startActivity(Intent(this, CreateGroupActivity::class.java))
+                startActivityForResult(Intent(this, CreateGroupActivity::class.java), 1001)
             } else {
                 startActivity(Intent(this, FriendsActivity::class.java))
             }
@@ -79,7 +80,23 @@ class MessagesActivity : AppCompatActivity() {
         setupBottomNavigation()
     }
 
-    private fun loadConversations() {
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: android.content.Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1001) {
+            // Retour de CreateGroupActivity : recharger ET basculer sur l'onglet Groupes
+            currentType = ConversationType.GROUP
+            loadConversations(switchToGroupsTab = true)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Recharger en respectant l'onglet actuellement actif
+        loadConversations()
+    }
+
+    private fun loadConversations(switchToGroupsTab: Boolean = false) {
         val token = sessionManager.fetchAuthToken() ?: return
         lifecycleScope.launch {
             try {
@@ -88,25 +105,20 @@ class MessagesActivity : AppCompatActivity() {
                     allConversations = response.body()!!
                         .map { it.toConversation() }
                         .toMutableList()
-                    
-                    // DEBUG TOAST
-                    Toast.makeText(this@MessagesActivity, "Load: ${allConversations.size} convs (${allConversations.count { it.type == ConversationType.GROUP }} groupes)", Toast.LENGTH_SHORT).show()
-                    
-                    filterConversations(currentType)
+
+                    if (switchToGroupsTab) {
+                        val tabLayout = findViewById<com.google.android.material.tabs.TabLayout>(R.id.tabLayout)
+                        tabLayout?.getTabAt(1)?.select() // déclenche onTabSelected → currentType = GROUP
+                    } else {
+                        filterConversations(currentType)
+                    }
                 } else {
-                    Log.e("MESSAGES", "Erreur API : ${response.code()} ${response.errorBody()?.string()}")
                     showEmpty()
                 }
             } catch (e: Exception) {
-                Log.e("MESSAGES", "Erreur réseau", e)
                 showEmpty()
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        loadConversations()
     }
 
     private fun filterConversations(type: ConversationType) {

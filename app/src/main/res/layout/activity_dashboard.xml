@@ -242,12 +242,12 @@
                         android:background="@color/unity_accent_muted" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/llFeed"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvFeed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:orientation="vertical" />
+                    android:nestedScrollingEnabled="false" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

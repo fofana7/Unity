@@ -81,7 +81,7 @@ class DashboardActivity : AppCompatActivity() {
         val tvTopUsername = findViewById<TextView>(R.id.tvTopUsername)
         val tvWelcome = findViewById<TextView>(R.id.tvWelcome)
         val btnLogout = findViewById<TextView>(R.id.btnLogout)
-        val tvNotifications = findViewById<TextView>(R.id.tvNotifications)
+        val btnNotifications = findViewById<View>(R.id.btnNotifications)
         val etNewPost = findViewById<EditText>(R.id.etNewPost)
         val btnPickImage = findViewById<View>(R.id.btnPickImage)
         val btnPublish = findViewById<Button>(R.id.btnPublish)
@@ -132,7 +132,7 @@ class DashboardActivity : AppCompatActivity() {
             finish()
         }
 
-        tvNotifications?.setOnClickListener {
+        btnNotifications?.setOnClickListener {
             startActivity(Intent(this, NotificationsActivity::class.java))
         }
 
@@ -318,39 +318,63 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun handleLike(post: PostResponse, icon: ImageView, text: TextView) {
         val token = sessionManager.fetchAuthToken() ?: return
+        
+        // Optimistic UI Update (immédiat pour une sensation réaliste et rapide)
+        val wasLiked = post.isLiked
+        post.isLiked = !wasLiked
+        post.likesCount += if (post.isLiked) 1 else -1
+
+        text.text = post.likesCount.toString()
+        if (post.isLiked) {
+            icon.setImageResource(android.R.drawable.btn_star_big_on)
+            icon.setColorFilter(getColor(R.color.unity_accent))
+        } else {
+            icon.setImageResource(android.R.drawable.btn_star_big_off)
+            icon.clearColorFilter()
+        }
+
+        // Requête réseau en arrière-plan
         lifecycleScope.launch {
             try {
-                if (!post.isLiked) {
-                    post.isLiked = true
-                    post.likesCount++
+                val response = RetrofitClient.instance.likePost("Bearer $token", post.id)
+                if (!response.isSuccessful) {
+                    // Rollback en cas d'erreur serveur
+                    post.isLiked = wasLiked
+                    post.likesCount += if (post.isLiked) 1 else -1
+                    text.text = post.likesCount.toString()
+                    if (post.isLiked) {
+                        icon.setImageResource(android.R.drawable.btn_star_big_on)
+                        icon.setColorFilter(getColor(R.color.unity_accent))
+                    } else {
+                        icon.setImageResource(android.R.drawable.btn_star_big_off)
+                        icon.clearColorFilter()
+                    }
+                }
+            } catch (e: Exception) {
+                // Rollback en cas d'absence de connexion
+                post.isLiked = wasLiked
+                post.likesCount += if (post.isLiked) 1 else -1
+                text.text = post.likesCount.toString()
+                if (post.isLiked) {
                     icon.setImageResource(android.R.drawable.btn_star_big_on)
                     icon.setColorFilter(getColor(R.color.unity_accent))
+                } else {
+                    icon.setImageResource(android.R.drawable.btn_star_big_off)
+                    icon.clearColorFilter()
                 }
-                text.text = post.likesCount.toString()
-                RetrofitClient.instance.likePost("Bearer $token", post.id)
-            } catch (e: Exception) {}
+            }
         }
     }
 
     private fun showCommentDialog(post: PostResponse) {
-        val token = sessionManager.fetchAuthToken() ?: return
-        val editText = EditText(this).apply { hint = "Commentaire..." }
-        android.app.AlertDialog.Builder(this)
-            .setTitle("Commenter")
-            .setView(editText)
-            .setPositiveButton("Envoyer") { _, _ ->
-                val comment = editText.text.toString().trim()
-                if (comment.isNotEmpty()) {
-                    lifecycleScope.launch {
-                        try {
-                            val res = RetrofitClient.instance.addComment("Bearer $token", post.id, mapOf("content" to comment))
-                            if (res.isSuccessful) loadPostsFromServer()
-                        } catch (e: Exception) {}
-                    }
-                }
+        val bottomSheet = CommentsBottomSheetFragment(post.id).apply {
+            onCommentAdded = {
+                // Optimistic UI pour la liste de posts : incrémenter et rafraîchir
+                post.commentsCount++
+                postAdapter.notifyDataSetChanged()
             }
-            .setNegativeButton("Annuler", null)
-            .show()
+        }
+        bottomSheet.show(supportFragmentManager, "CommentsBottomSheet")
     }
 
     private fun redirectToLogin() {
