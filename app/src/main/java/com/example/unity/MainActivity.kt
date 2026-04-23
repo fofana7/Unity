@@ -66,7 +66,12 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     } else {
-                        Toast.makeText(this@MainActivity, "Identifiants incorrects", Toast.LENGTH_SHORT).show()
+                        val errorBody = response.errorBody()?.string() ?: ""
+                        if (errorBody.contains("not validated", ignoreCase = true) || response.code() == 403) {
+                            Toast.makeText(this@MainActivity, "Votre compte est en attente de validation par l'administration.", Toast.LENGTH_LONG).show()
+                        } else {
+                            Toast.makeText(this@MainActivity, "Identifiants incorrects", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } catch (e: Exception) {
                     Log.e("LOGIN_DEBUG", "Error", e)

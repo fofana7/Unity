@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/unity_card">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +24,8 @@
             android:layout_height="wrap_content"
             android:hint="Titre"
             android:inputType="textCapSentences"
-            android:textColor="@color/black" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/unity_muted" />
 
         <EditText
             android:id="@+id/etEditType"
@@ -32,7 +34,8 @@
             android:layout_marginTop="12dp"
             android:hint="Type (Examen, Contrôle, etc.)"
             android:inputType="textCapSentences"
-            android:textColor="@color/black" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/unity_muted" />
 
         <EditText
             android:id="@+id/etEditClasse"
@@ -41,7 +44,8 @@
             android:layout_marginTop="12dp"
             android:hint="Classe (ex: A1MSI)"
             android:inputType="textCapCharacters"
-            android:textColor="@color/black" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/unity_muted" />
 
         <EditText
             android:id="@+id/etEditDate"
@@ -50,7 +54,8 @@
             android:layout_marginTop="12dp"
             android:hint="Date (AAAA-MM-JJ)"
             android:inputType="date"
-            android:textColor="@color/black" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/unity_muted" />
 
         <EditText
             android:id="@+id/etEditDescription"
@@ -60,7 +65,8 @@
             android:hint="Description (optionnel)"
             android:inputType="textMultiLine"
             android:minLines="2"
-            android:textColor="@color/black" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/unity_muted" />
 
     </LinearLayout>
 </ScrollView>

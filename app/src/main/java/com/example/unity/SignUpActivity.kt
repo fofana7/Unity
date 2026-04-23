@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +82,8 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.error_invalid_email_domain), Toast.LENGTH_SHORT).show()
             } else if (password != confirmPassword) {
                 Toast.makeText(this, getString(R.string.error_password_mismatch), Toast.LENGTH_SHORT).show()
+            } else if (!isPasswordComplex(password)) {
+                Toast.makeText(this, "Votre mot de passe doit être complexe. Il doit comporter au minimum 12 caractères mélangeant les majuscules, les minuscules, des chiffres et des caractères spéciaux.", Toast.LENGTH_LONG).show()
             } else {
                 lifecycleScope.launch {
                     try {
@@ -100,8 +103,23 @@ class SignUpActivity : AppCompatActivity() {
                             Toast.makeText(this@SignUpActivity, "Inscription réussie ! En attente de validation par l'administration.", Toast.LENGTH_LONG).show()
                             finish()
                         } else {
-                            val errorBody = response.errorBody()?.string() ?: "Erreur d'inscription"
-                            Toast.makeText(this@SignUpActivity, "Serveur : $errorBody", Toast.LENGTH_LONG).show()
+                            val errorBodyString = response.errorBody()?.string()
+                            var displayMessage = "Erreur d'inscription"
+                            
+                            if (!errorBodyString.isNullOrEmpty()) {
+                                try {
+                                    val jsonObject = JSONObject(errorBodyString)
+                                    if (jsonObject.has("error")) {
+                                        displayMessage = jsonObject.getString("error")
+                                    }
+                                } catch (e: Exception) {
+                                    if (errorBodyString.contains("email déjà utilisé", ignoreCase = true) || 
+                                        errorBodyString.contains("username already exists", ignoreCase = true)) {
+                                        displayMessage = "Cet email ou nom d'utilisateur est déjà utilisé."
+                                    }
+                                }
+                            }
+                            Toast.makeText(this@SignUpActivity, displayMessage, Toast.LENGTH_LONG).show()
                         }
                     } catch (e: Exception) {
                         Toast.makeText(this@SignUpActivity, "Erreur réseau : ${e.message}", Toast.LENGTH_LONG).show()
@@ -111,5 +129,11 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         tvLogin.setOnClickListener { finish() }
+    }
+
+    private fun isPasswordComplex(password: String): Boolean {
+        // Au moins 12 caractères, Majuscule, Minuscule, Chiffre et Caractère spécial
+        val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!._,?;:])(?=\\S+$).{12,}$".toRegex()
+        return passwordPattern.matches(password)
     }
 }

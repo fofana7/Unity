@@ -1,6 +1,7 @@
 package com.example.unity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.launch
@@ -37,6 +39,7 @@ class ManageEventsActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.btnBack).setOnClickListener { finish() }
 
         val rv = findViewById<RecyclerView>(R.id.rvEvents)
+        rv.layoutManager = LinearLayoutManager(this)
         adapter = TeacherEventAdapter(
             eventsList,
             onEditClick = { event -> openEditDialog(event) },
@@ -93,9 +96,12 @@ class ManageEventsActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Toast.makeText(this@ManageEventsActivity, "Mis à jour !", Toast.LENGTH_SHORT).show()
                     loadTeacherEvents()
+                } else {
+                    val errorMsg = response.errorBody()?.string() ?: "Code ${response.code()}"
+                    Toast.makeText(this@ManageEventsActivity, "Erreur serveur: $errorMsg", Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@ManageEventsActivity, "Erreur lors de la mise à jour", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ManageEventsActivity, "Erreur réseau: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -103,6 +109,7 @@ class ManageEventsActivity : AppCompatActivity() {
     private fun loadTeacherEvents() {
         val token = sessionManager.fetchAuthToken() ?: return
         val swipeRefresh = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
+        val tvEmptyLayout = findViewById<View>(R.id.tvEmpty)
 
         lifecycleScope.launch {
             try {
@@ -112,11 +119,16 @@ class ManageEventsActivity : AppCompatActivity() {
                     eventsList.addAll(response.body()!!)
                     adapter.notifyDataSetChanged()
                     
-                    findViewById<TextView>(R.id.tvEmpty).visibility = 
-                        if (eventsList.isEmpty()) View.VISIBLE else View.GONE
+                    tvEmptyLayout.visibility = if (eventsList.isEmpty()) View.VISIBLE else View.GONE
+                } else {
+                    val errorMsg = response.errorBody()?.string() ?: "Erreur ${response.code()}"
+                    Log.e("MANAGE_EVENTS", "Load error: $errorMsg")
+                    tvEmptyLayout.visibility = View.VISIBLE
+                    // On peut aussi mettre à jour un TextView à l'intérieur du layout si besoin
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@ManageEventsActivity, "Erreur réseau", Toast.LENGTH_SHORT).show()
+                Log.e("MANAGE_EVENTS", "Network exception", e)
+                tvEmptyLayout.visibility = View.VISIBLE
             } finally {
                 swipeRefresh.isRefreshing = false
             }
@@ -141,7 +153,8 @@ class ManageEventsActivity : AppCompatActivity() {
                     Toast.makeText(this@ManageEventsActivity, "Évènement supprimé", Toast.LENGTH_SHORT).show()
                     loadTeacherEvents()
                 } else {
-                    Toast.makeText(this@ManageEventsActivity, "Erreur lors de la suppression", Toast.LENGTH_SHORT).show()
+                    val errorMsg = response.errorBody()?.string() ?: "Erreur ${response.code()}"
+                    Toast.makeText(this@ManageEventsActivity, "Erreur suppression : $errorMsg", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@ManageEventsActivity, "Erreur réseau", Toast.LENGTH_SHORT).show()

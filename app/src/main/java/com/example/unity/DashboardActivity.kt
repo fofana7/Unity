@@ -206,8 +206,8 @@ class DashboardActivity : AppCompatActivity() {
                         
                         // Personnaliser le message de bienvenue selon le rôle
                         when {
-                            role == "admin" -> tvWelcomeSub?.text = "Supervisez la plateforme et gérez les utilisateurs."
-                            role == "enseignant" || role == "professeur" || role == "prof" || role == "personnel" -> 
+                            role == "admin" || role == "personnel" -> tvWelcomeSub?.text = "Supervisez la plateforme et gérez les utilisateurs."
+                            role == "enseignant" || role == "professeur" || role == "prof" -> 
                                 tvWelcomeSub?.text = "Gérez vos cours et échangez avec vos étudiants."
                             else -> tvWelcomeSub?.text = "Discute avec ta promo et partage des ressources."
                         }
@@ -261,13 +261,13 @@ class DashboardActivity : AppCompatActivity() {
     private fun updateBadge(badgeTitle: TextView?, role: String?) {
         val finalRole = role?.lowercase()?.trim() ?: "eleve"
         when {
-            finalRole == "admin" -> {
+            finalRole == "admin" || finalRole == "personnel" -> {
                 badgeTitle?.text = "Espace Administration"
                 badgeTitle?.visibility = View.VISIBLE
                 findViewById<View>(R.id.btnManageEvents)?.visibility = View.VISIBLE
                 fabCreateEvent.visibility = View.VISIBLE
             }
-            finalRole == "enseignant" || finalRole == "professeur" || finalRole == "prof" || finalRole == "personnel" -> {
+            finalRole == "enseignant" || finalRole == "professeur" || finalRole == "prof" -> {
                 badgeTitle?.text = "Espace Enseignants"
                 badgeTitle?.visibility = View.VISIBLE
                 findViewById<View>(R.id.btnManageEvents)?.visibility = View.VISIBLE

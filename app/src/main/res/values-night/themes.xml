@@ -6,5 +6,37 @@
         <item name="android:windowBackground">@color/unity_bg</item>
         <item name="android:statusBarColor">@color/unity_card</item>
         <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Surface colors for M3 components -->
+        <item name="colorSurface">@color/unity_card</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorSurfaceVariant">@color/unity_card</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <style name="Theme.Unity" parent="Base.Theme.Unity">
+        <item name="alertDialogTheme">@style/UnityAlertDialogTheme</item>
+        <item name="materialAlertDialogTheme">@style/UnityAlertDialogTheme</item>
+    </style>
+
+    <style name="UnityAlertDialogTheme" parent="Theme.Material3.DayNight.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="background">@color/unity_card</item>
+        <item name="backgroundColor">@color/unity_card</item>
+        <item name="colorSurface">@color/unity_card</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorAlertDialogListItem">@color/white</item>
+        <item name="buttonBarPositiveButtonStyle">@style/UnityDialogButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/UnityDialogButtonStyle</item>
+    </style>
+
+    <style name="UnityDialogButtonStyle" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/unity_accent</item>
     </style>
 </resources>

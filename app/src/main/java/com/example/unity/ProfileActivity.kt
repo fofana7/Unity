@@ -293,10 +293,10 @@ class ProfileActivity : AppCompatActivity() {
                     tvName.text = if (fullName.isNotEmpty()) fullName else user.username
                     tvHandle.text = "@${user.username}"
                     
-                    val roleStr = user.role?.lowercase() ?: "eleve"
+                    val roleStr = user.role?.lowercase()?.trim() ?: "eleve"
                     tvRole.text = when {
-                        roleStr.contains("admin") -> "Administrateur"
-                        roleStr.contains("prof") || roleStr.contains("enseignant") -> "Enseignant"
+                        roleStr == "admin" || roleStr.contains("admin") || roleStr == "personnel" -> "Administrateur"
+                        roleStr == "enseignant" || roleStr.contains("prof") -> "Enseignant"
                         else -> "Étudiant"
                     }
 

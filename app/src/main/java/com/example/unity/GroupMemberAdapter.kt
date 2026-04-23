@@ -31,7 +31,12 @@ class GroupMemberAdapter(
         fun bind(user: UserResponse, isMe: Boolean) {
             val fullName = user.displayName()
             tvName.text = if (isMe) "$fullName (vous)" else fullName
-            tvRole.text = user.role?.capitalize() ?: "Étudiant"
+            val roleStr = user.role?.lowercase()?.trim() ?: "eleve"
+            tvRole.text = when {
+                roleStr == "admin" || roleStr.contains("admin") || roleStr == "personnel" -> "Administrateur"
+                roleStr == "enseignant" || roleStr.contains("prof") -> "Enseignant"
+                else -> "Étudiant"
+            }
             tvInitials.text = fullName.take(1).uppercase()
         }
     }
