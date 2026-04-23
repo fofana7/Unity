@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
@@ -38,6 +39,10 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var postAdapter: PostAdapter
     private lateinit var ivSelectedImage: ImageView
+    private lateinit var fabCreateEvent: FloatingActionButton
+    private lateinit var eventAdapter: EventAdapter
+    private lateinit var rvEvents: RecyclerView
+    private lateinit var layoutEvents: View
     
     private var currentUser: UserResponse? = null
     private var allPosts: MutableList<PostResponse> = mutableListOf()
@@ -77,6 +82,7 @@ class DashboardActivity : AppCompatActivity() {
         rvFeed = findViewById(R.id.rvFeed)
         swipeRefresh = findViewById(R.id.swipeRefresh)
         ivSelectedImage = findViewById(R.id.ivSelectedImage)
+        fabCreateEvent = findViewById(R.id.fabCreateEvent)
         
         val tvTopUsername = findViewById<TextView>(R.id.tvTopUsername)
         val tvWelcome = findViewById<TextView>(R.id.tvWelcome)
@@ -87,7 +93,14 @@ class DashboardActivity : AppCompatActivity() {
         val btnPublish = findViewById<Button>(R.id.btnPublish)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
 
-        fetchUserProfile(tvTopUsername, tvWelcome)
+        rvEvents = findViewById(R.id.rvEvents)
+        layoutEvents = findViewById(R.id.layoutEvents)
+        eventAdapter = EventAdapter(emptyList())
+        rvEvents.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvEvents.adapter = eventAdapter
+
+        val tvWelcomeSub = findViewById<TextView>(R.id.tvWelcomeSub)
+        fetchUserProfile(tvTopUsername, tvWelcome, tvWelcomeSub)
 
         postAdapter = PostAdapter(
             posts = emptyList(),
@@ -135,6 +148,18 @@ class DashboardActivity : AppCompatActivity() {
         btnNotifications?.setOnClickListener {
             startActivity(Intent(this, NotificationsActivity::class.java))
         }
+        
+        findViewById<View>(R.id.btnViewAllEvents)?.setOnClickListener {
+            startActivity(Intent(this, EventsActivity::class.java))
+        }
+
+        findViewById<View>(R.id.btnManageEvents)?.setOnClickListener {
+            startActivity(Intent(this, ManageEventsActivity::class.java))
+        }
+
+        fabCreateEvent.setOnClickListener {
+            startActivity(Intent(this, CreateEventActivity::class.java))
+        }
 
         bottomNav?.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -156,22 +181,103 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun fetchUserProfile(tvUsername: TextView?, tvWelcome: TextView?) {
+    private fun fetchUserProfile(tvUsername: TextView?, tvWelcome: TextView?, tvWelcomeSub: TextView?) {
+        val badgeTitle = findViewById<TextView>(R.id.badgeTitle)
         val token = sessionManager.fetchAuthToken() ?: return redirectToLogin()
+        
+        // --- PRE-AFFICHAGE DEPUIS LA SESSION ---
+        val savedRole = sessionManager.fetchUserRole()?.lowercase()?.trim()
+        updateBadge(badgeTitle, savedRole)
+
         lifecycleScope.launch {
             try {
                 val response = RetrofitClient.instance.getMe("Bearer $token")
                 if (response.isSuccessful && response.body() != null) {
                     currentUser = response.body()!!.user
+                    
                     val name = currentUser?.firstName ?: currentUser?.username ?: "Utilisateur"
                     tvUsername?.text = name
                     tvWelcome?.text = "Bienvenue, $name !"
+
+                    val role = currentUser?.role?.lowercase()?.trim()
+                    if (role != null) {
+                        sessionManager.saveUserRole(role) // Mettre à jour la session
+                        updateBadge(badgeTitle, role)
+                        
+                        // Personnaliser le message de bienvenue selon le rôle
+                        when {
+                            role == "admin" -> tvWelcomeSub?.text = "Supervisez la plateforme et gérez les utilisateurs."
+                            role == "enseignant" || role == "professeur" || role == "prof" || role == "personnel" -> 
+                                tvWelcomeSub?.text = "Gérez vos cours et échangez avec vos étudiants."
+                            else -> tvWelcomeSub?.text = "Discute avec ta promo et partage des ressources."
+                        }
+                    }
                     
-                    // Mise à jour de l'adaptateur avec le bon ID utilisateur pour les permissions
                     postAdapter.currentUserId = currentUser?.id ?: -1
+                    
+                    // Charger les évènements si l'utilisateur a une classe
+                    currentUser?.classe?.trim()?.let { classe ->
+                        if (classe.isNotEmpty()) {
+                            loadEventsForClass(classe)
+                        }
+                    }
+
+                    // Afficher le bouton de création d'évènement si c'est un enseignant
+                    if (currentUser?.isTeacher() == true) {
+                        fabCreateEvent.visibility = View.VISIBLE
+                        findViewById<View>(R.id.btnManageEvents).visibility = View.VISIBLE
+                        layoutEvents.visibility = View.VISIBLE
+                    }
                 }
             } catch (e: Exception) {
                 Log.e("DASHBOARD", "Erreur réseau", e)
+            }
+        }
+    }
+
+    private fun loadEventsForClass(classe: String) {
+        val token = sessionManager.fetchAuthToken() ?: return
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.instance.getEventsByClasse("Bearer $token", classe)
+                if (response.isSuccessful && response.body() != null) {
+                    val events = response.body()!!
+                    eventAdapter.updateData(events)
+                    
+                    // On affiche le layout si il y a des évènements OU si on est un prof (pour voir le bouton Gérer)
+                    val isTeacher = currentUser?.isTeacher() ?: false
+                    if (events.isNotEmpty() || isTeacher) {
+                        layoutEvents.visibility = View.VISIBLE
+                    } else {
+                        layoutEvents.visibility = View.GONE
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("DASHBOARD", "Error loading events", e)
+            }
+        }
+    }
+
+    private fun updateBadge(badgeTitle: TextView?, role: String?) {
+        val finalRole = role?.lowercase()?.trim() ?: "eleve"
+        when {
+            finalRole == "admin" -> {
+                badgeTitle?.text = "Espace Administration"
+                badgeTitle?.visibility = View.VISIBLE
+                findViewById<View>(R.id.btnManageEvents)?.visibility = View.VISIBLE
+                fabCreateEvent.visibility = View.VISIBLE
+            }
+            finalRole == "enseignant" || finalRole == "professeur" || finalRole == "prof" || finalRole == "personnel" -> {
+                badgeTitle?.text = "Espace Enseignants"
+                badgeTitle?.visibility = View.VISIBLE
+                findViewById<View>(R.id.btnManageEvents)?.visibility = View.VISIBLE
+                fabCreateEvent.visibility = View.VISIBLE
+            }
+            else -> {
+                badgeTitle?.text = "Espace Étudiants"
+                badgeTitle?.visibility = View.VISIBLE
+                findViewById<View>(R.id.btnManageEvents)?.visibility = View.GONE
+                fabCreateEvent.visibility = View.GONE
             }
         }
     }

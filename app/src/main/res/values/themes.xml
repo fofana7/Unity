@@ -9,5 +9,23 @@
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
-    <style name="Theme.Unity" parent="Base.Theme.Unity" />
+    <style name="Theme.Unity" parent="Base.Theme.Unity">
+        <item name="alertDialogTheme">@style/UnityAlertDialogTheme</item>
+        <item name="materialAlertDialogTheme">@style/UnityAlertDialogTheme</item>
+    </style>
+
+    <style name="UnityAlertDialogTheme" parent="Theme.Material3.DayNight.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="background">@color/unity_card</item>
+        <item name="backgroundColor">@color/unity_card</item>
+        <item name="colorSurface">@color/unity_card</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/unity_muted</item>
+        <item name="buttonBarPositiveButtonStyle">@style/UnityDialogButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/UnityDialogButtonStyle</item>
+    </style>
+
+    <style name="UnityDialogButtonStyle" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/unity_accent</item>
+    </style>
 </resources>

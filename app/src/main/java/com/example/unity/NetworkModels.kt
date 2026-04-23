@@ -19,8 +19,8 @@ data class RegisterRequest(
     @SerializedName("email") val email: String,
     @SerializedName("password") val password: String,
     @SerializedName("username") val username: String,
-    @SerializedName("prenom") val firstName: String,
-    @SerializedName("nom") val lastName: String,
+    @SerializedName("firstName") val firstName: String,
+    @SerializedName("lastName") val lastName: String,
     @SerializedName("role") val role: String,
     @SerializedName("classe") val classe: String? = null
 )
@@ -38,30 +38,75 @@ data class UserWrapper(
 
 data class UserResponse(
     @SerializedName("id") val id: Int? = null,
-    @SerializedName("email") val email: String,
+    @SerializedName("email") val email: String? = null,
     @SerializedName("username") val username: String? = null,
-    @SerializedName("firstname") val firstName: String? = null,
-    @SerializedName("lastname") val lastName: String? = null,
-    @SerializedName("role") val role: String? = null,
+    @SerializedName(value = "firstname", alternate = ["first_name", "prenom", "prenom_user"]) val firstName: String? = null,
+    @SerializedName(value = "lastname", alternate = ["last_name", "nom", "nom_user"]) val lastName: String? = null,
+    @SerializedName(value = "role", alternate = ["user_role", "type_user", "role_user"]) val role: String? = null,
     @SerializedName("bio") val bio: String? = null,
     @SerializedName("avatarurl") val avatarUrl: String? = null,
     @SerializedName("classe") val classe: String? = null,
     @SerializedName("friendsCount") val friendsCount: Int = 0,
     @SerializedName("postsCount") val postsCount: Int = 0
-)
+) {
+    fun displayName(): String {
+        val full = listOfNotNull(firstName, lastName).joinToString(" ").trim()
+        if (full.isNotEmpty()) return full
+        if (!username.isNullOrBlank()) return username
+        return if (id != null) "Membre #$id" else "Utilisateur inconnu"
+    }
+
+    fun isTeacher(): Boolean {
+        val r = role?.lowercase() ?: ""
+        return r.contains("prof") || r.contains("enseignant") || r == "admin" || r == "personnel"
+    }
+}
 
 // --- CHAT & MESSAGES ---
 
+enum class ConversationType {
+    PRIVATE, GROUP
+}
+
+data class Conversation(
+    val id: Int,
+    val userName: String,
+    val lastMessage: String,
+    val time: String,
+    val type: ConversationType
+)
+
 data class SendMessageRequest(
     @SerializedName("receiverId") val receiverId: Int? = null,
+    @SerializedName("receiver_id") val receiver_id: Int? = null,
     @SerializedName("groupId") val groupId: Int? = null,
-    @SerializedName("content") val content: String
+    @SerializedName("group_id") val group_id: Int? = null,
+    @SerializedName("content") val content: String,
+    @SerializedName("fileUrl") val fileUrl: String? = null,
+    @SerializedName("fileType") val fileType: String? = null
+)
+
+data class ChatUploadResponse(
+    @SerializedName("fileUrl") val fileUrl: String,
+    @SerializedName("fileType") val fileType: String,
+    @SerializedName("originalName") val originalName: String
 )
 
 data class CreateGroupRequest(
     @SerializedName("name") val name: String,
-    @SerializedName("description") val description: String? = null, // Champ rajouté
+    @SerializedName("description") val description: String? = null,
     @SerializedName("memberIds") val memberIds: List<Int>
+)
+
+data class AddMembersRequest(
+    @SerializedName("memberIds") val memberIds: List<Int>
+)
+
+data class GroupDetailsResponse(
+    @SerializedName("id") val id: Int,
+    @SerializedName("name") val name: String,
+    @SerializedName("description") val description: String?,
+    @SerializedName(value = "members", alternate = ["users", "participants"]) val members: List<UserResponse>?
 )
 
 data class Message(
@@ -71,6 +116,9 @@ data class Message(
     @SerializedName("group_id") val groupId: Int? = null,
     @SerializedName("content") val content: String,
     @SerializedName("created_at") val timestamp: String? = null,
+    @SerializedName("sender_name") var senderName: String? = null,
+    @SerializedName("file_url") val fileUrl: String? = null,
+    @SerializedName("file_type") val fileType: String? = null,
     var isMe: Boolean = false
 )
 
@@ -81,11 +129,14 @@ data class GroupMessageResponse(
     @SerializedName("created_at") val createdAt: String = "",
     @SerializedName("username") val username: String? = null,
     @SerializedName("first_name") val firstName: String? = null,
-    @SerializedName("last_name") val lastName: String? = null
+    @SerializedName("last_name") val lastName: String? = null,
+    @SerializedName("file_url") val fileUrl: String? = null,
+    @SerializedName("file_type") val fileType: String? = null
 ) {
     fun displayName(): String {
         val full = listOfNotNull(firstName, lastName).joinToString(" ").trim()
-        return full.ifEmpty { username ?: "Utilisateur" }
+        if (full.isNotEmpty()) return full
+        return username ?: "Utilisateur"
     }
 }
 
@@ -129,15 +180,16 @@ data class ConversationResponse(
     }
 }
 
-// --- AMIS ---
-
 data class FriendActionRequest(
     @SerializedName("friendId") val friendId: Int? = null,
     @SerializedName("requesterId") val requesterId: Int? = null,
     @SerializedName("status") val status: String? = null
 )
 
-// --- POSTS ---
+data class FriendshipStatusResponse(
+    @SerializedName("status") val status: String? = null, // 'pending', 'accepted', or 'none'
+    @SerializedName("isRequester") val isRequester: Boolean? = null
+)
 
 data class PostResponse(
     @SerializedName("id") val id: Int = 0,
@@ -180,3 +232,25 @@ data class CommentResponse(
         return full.ifEmpty { username ?: "Utilisateur" }
     }
 }
+
+// --- EVENEMENTS (Teacher Feature) ---
+
+data class EventResponse(
+    @SerializedName("id") val id: Int,
+    @SerializedName("title") val title: String,
+    @SerializedName("description") val description: String?,
+    @SerializedName("type") val type: String,
+    @SerializedName("date") val date: String,
+    @SerializedName("classe") val classe: String,
+    @SerializedName("teacher_id") val teacherId: Int,
+    @SerializedName("teacher_name") val teacherName: String? = null,
+    @SerializedName("created_at") val createdAt: String? = null
+)
+
+data class CreateEventRequest(
+    @SerializedName("title") val title: String,
+    @SerializedName("description") val description: String?,
+    @SerializedName("type") val type: String,
+    @SerializedName("date") val date: String,
+    @SerializedName("classe") val classe: String
+)

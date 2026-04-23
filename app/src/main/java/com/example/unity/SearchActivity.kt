@@ -3,6 +3,7 @@ package com.example.unity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
@@ -37,7 +38,7 @@ class SearchActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener { finish() }
 
-        adapter = FriendAdapter(emptyList()) { user, type, isAccept ->
+        adapter = FriendAdapter(mutableListOf()) { user, type, isAccept ->
             val token = sessionManager.fetchAuthToken() ?: return@FriendAdapter
             val myId = sessionManager.fetchUserId()
             lifecycleScope.launch {
@@ -78,9 +79,16 @@ class SearchActivity : AppCompatActivity() {
                 val response = RetrofitClient.instance.getAllUsers("Bearer $token")
                 if (response.isSuccessful) {
                     allUsers = response.body() ?: emptyList()
+                    Log.d("SEARCH_DEBUG", "Loaded ${allUsers.size} users")
+                } else {
+                    Log.e("SEARCH_DEBUG", "Error 404 or other: ${response.code()}")
+                    if (response.code() == 404) {
+                        // Si 404, on tente l'ancienne route par sécurité (si le serveur n'a pas été mis à jour)
+                        // Mais normalement ApiService s'en occupe.
+                    }
                 }
             } catch (e: Exception) {
-                // Erreur silencieuse
+                Log.e("SEARCH_DEBUG", "Exception", e)
             } finally {
                 progressBar.visibility = View.GONE
             }
@@ -89,7 +97,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun filterUsers(query: String, tvEmpty: TextView) {
         if (query.isEmpty()) {
-            adapter.updateData(emptyList())
+            adapter.updateData(emptyList(), FriendActionType.SUGGESTION)
             tvEmpty.visibility = View.GONE
             return
         }
@@ -100,9 +108,7 @@ class SearchActivity : AppCompatActivity() {
             it.lastName?.contains(query, ignoreCase = true) == true
         }
 
-        val items = filtered.map { FriendItem(it, FriendActionType.SUGGESTION) }
-        adapter.updateData(items)
-
-        tvEmpty.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+        adapter.updateData(filtered, FriendActionType.SUGGESTION)
+        tvEmpty.visibility = if (filtered.isEmpty()) View.VISIBLE else View.GONE
     }
 }

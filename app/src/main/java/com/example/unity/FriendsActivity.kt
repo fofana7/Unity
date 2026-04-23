@@ -27,6 +27,7 @@ class FriendsActivity : AppCompatActivity() {
     private var allUsers = listOf<UserResponse>()
     private var myFriends = listOf<UserResponse>()
     private var incomingRequests = listOf<UserResponse>()
+    private var outgoingRequests = listOf<UserResponse>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +81,9 @@ class FriendsActivity : AppCompatActivity() {
                 val reqRes = RetrofitClient.instance.getFriendRequests("Bearer $token")
                 if (reqRes.isSuccessful) incomingRequests = reqRes.body() ?: emptyList()
 
+                val sentRes = RetrofitClient.instance.getSentRequests("Bearer $token")
+                if (sentRes.isSuccessful) outgoingRequests = sentRes.body() ?: emptyList()
+
                 refreshCurrentTab(initialTab)
             } catch (e: Exception) {
                 Log.e("FRIENDS", "Load failed", e)
@@ -106,10 +110,14 @@ class FriendsActivity : AppCompatActivity() {
     private fun showSuggestions() {
         val myId = sessionManager.fetchUserId()
         val friendIds = myFriends.mapNotNull { it.id }.toSet()
-        val requestIds = incomingRequests.mapNotNull { it.id }.toSet()
+        val incomingIds = incomingRequests.mapNotNull { it.id }.toSet()
+        val outgoingIds = outgoingRequests.mapNotNull { it.id }.toSet()
 
         val suggestions = allUsers.filter { user ->
-            user.id != myId && !friendIds.contains(user.id) && !requestIds.contains(user.id)
+            user.id != myId && 
+            !friendIds.contains(user.id) && 
+            !incomingIds.contains(user.id) && 
+            !outgoingIds.contains(user.id)
         }
         adapter.updateData(suggestions, FriendActionType.SUGGESTION)
         updateEmptyState(suggestions.isEmpty(), "Aucune suggestion pour l'instant")

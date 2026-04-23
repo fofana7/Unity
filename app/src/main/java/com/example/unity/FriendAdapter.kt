@@ -86,6 +86,14 @@ class FriendAdapter(
         holder.btnSecondaryAction.setOnClickListener {
             onActionClick(friend, actionType, false)
         }
+
+        holder.itemView.setOnClickListener {
+            val context = it.context
+            android.util.Log.d("PROFILE_CLICK", "Clicked on user: ${friend.username} with ID: ${friend.id}")
+            val intent = android.content.Intent(context, ProfileActivity::class.java)
+            intent.putExtra("userId", friend.id ?: -1)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount() = items.size

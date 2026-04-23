@@ -2,8 +2,8 @@ package com.example.unity
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +11,9 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -24,215 +27,146 @@ class EditProfileActivity : AppCompatActivity() {
 
         sessionManager = SessionManager(this)
 
-        val etFullName =
-            findViewById<TextInputEditText>(R.id.etFullName)
+        val etFirstName = findViewById<TextInputEditText>(R.id.etFirstName)
+        val etLastName = findViewById<TextInputEditText>(R.id.etLastName)
+        val etBio = findViewById<TextInputEditText>(R.id.etBio)
+        val etClasse = findViewById<TextInputEditText>(R.id.etClasse)
+        val btnSave = findViewById<MaterialButton>(R.id.btnSave)
+        val tvInitials = findViewById<TextView>(R.id.tvEditInitials)
 
-        val etBio =
-            findViewById<TextInputEditText>(R.id.etBio)
+        findViewById<ImageButton>(R.id.btnBack).setOnClickListener { finish() }
 
-        val rgStatus =
-            findViewById<RadioGroup>(R.id.rgStatus)
-
-        val btnSave =
-            findViewById<MaterialButton>(R.id.btnSave)
-
-        val toolbar =
-            findViewById<androidx.appcompat.widget.Toolbar>(
-                R.id.toolbar
-            )
-
-        toolbar.setNavigationOnClickListener {
-            finish()
+        findViewById<android.view.View>(R.id.btnChangeAvatar).setOnClickListener {
+            openImagePicker(REQUEST_CODE_AVATAR)
         }
 
-        // Charger profil
-        loadCurrentProfile(
-            etFullName,
-            etBio,
-            rgStatus
-        )
+        findViewById<android.view.View>(R.id.btnChangeBanner).setOnClickListener {
+            openImagePicker(REQUEST_CODE_BANNER)
+        }
 
-        // Sauvegarder
+        loadCurrentProfile(etFirstName, etLastName, etBio, etClasse, tvInitials)
+
         btnSave.setOnClickListener {
+            val fName = etFirstName.text.toString().trim()
+            val lName = etLastName.text.toString().trim()
+            val bio = etBio.text.toString().trim()
+            val classe = etClasse.text.toString().trim()
 
-            val fullName =
-                etFullName.text.toString().trim()
-
-            val bio =
-                etBio.text.toString().trim()
-
-            val selectedId =
-                rgStatus.checkedRadioButtonId
-
-            val status =
-                if (selectedId != -1) {
-
-                    findViewById<RadioButton>(
-                        selectedId
-                    ).text.toString()
-
-                } else {
-
-                    "Étudiant"
-
-                }
-
-            updateProfile(
-                fullName,
-                bio,
-                status
-            )
+            updateProfile(fName, lName, bio, classe)
         }
     }
 
-    private fun loadCurrentProfile(
-        etName: TextInputEditText,
-        etBio: TextInputEditText,
-        rgStatus: RadioGroup
-    ) {
+    private val REQUEST_CODE_AVATAR = 101
+    private val REQUEST_CODE_BANNER = 102
 
-        val token =
-            sessionManager.fetchAuthToken()
-                ?: return
+    private fun openImagePicker(requestCode: Int) {
+        val intent = android.content.Intent(android.content.Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, requestCode)
+    }
 
-        lifecycleScope.launch {
-
-            try {
-
-                val response =
-                    RetrofitClient
-                        .instance
-                        .getMe("Bearer $token")
-
-                if (
-                    response.isSuccessful &&
-                    response.body() != null
-                ) {
-
-                    // 🔴 CORRECTION ICI
-                    val wrapper =
-                        response.body()!!
-
-                    val user =
-                        wrapper.user
-
-                    currentUser = user
-
-                    etName.setText(
-                        "${user.firstName ?: ""} ${user.lastName ?: ""}".trim()
-                    )
-
-                    etBio.setText(
-                        user.bio ?: ""
-                    )
-
-                    // Sélection rôle
-                    when (user.role) {
-
-                        "Étudiant" ->
-                            findViewById<RadioButton>(
-                                R.id.rbStudent
-                            ).isChecked = true
-
-                        "Enseignant" ->
-                            findViewById<RadioButton>(
-                                R.id.rbTeacher
-                            ).isChecked = true
-
-                        "Modérateur" ->
-                            findViewById<RadioButton>(
-                                R.id.rbModerator
-                            ).isChecked = true
-                    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: android.content.Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && data != null) {
+            val imageUri = data.data
+            if (imageUri != null) {
+                if (requestCode == REQUEST_CODE_AVATAR) {
+                    uploadAvatarToServer(imageUri)
+                } else {
+                    Toast.makeText(this, "Upload de bannière bientôt disponible", Toast.LENGTH_SHORT).show()
                 }
-
-            } catch (e: Exception) {
-
-                Log.e(
-                    "EDIT_PROFILE",
-                    "Erreur chargement",
-                    e
-                )
             }
         }
     }
 
-    private fun updateProfile(
-        fullName: String,
-        bio: String,
-        status: String
+    private fun uploadAvatarToServer(uri: android.net.Uri) {
+        val token = sessionManager.fetchAuthToken() ?: return
+        
+        lifecycleScope.launch {
+            try {
+                // Créer le Part depuis l'URI
+                val inputStream = contentResolver.openInputStream(uri)
+                val bytes = inputStream?.readBytes() ?: return@launch
+                
+                val mimeType = contentResolver.getType(uri) ?: "image/*"
+                val mediaType = mimeType.toMediaTypeOrNull()
+                val requestFile = bytes.toRequestBody(mediaType)
+                
+                val body = MultipartBody.Part.createFormData("avatar", "avatar.jpg", requestFile)
+
+                val response = RetrofitClient.instance.uploadAvatar("Bearer $token", body)
+                if (response.isSuccessful) {
+                    Toast.makeText(this@EditProfileActivity, "Photo de profil mise à jour !", Toast.LENGTH_SHORT).show()
+                    findViewById<TextView>(R.id.tvEditInitials).text = "📸"
+                    // Optionnel: Recharger les infos pour avoir l'URL
+                } else {
+                    Log.e("EDIT_PROFILE", "Upload error: ${response.code()}")
+                    Toast.makeText(this@EditProfileActivity, "Erreur lors de l'upload", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Log.e("EDIT_PROFILE", "Upload exception", e)
+                Toast.makeText(this@EditProfileActivity, "Erreur réseau", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun loadCurrentProfile(
+        etFName: TextInputEditText,
+        etLName: TextInputEditText,
+        etBio: TextInputEditText,
+        etClasse: TextInputEditText,
+        tvInit: TextView
     ) {
-
-        val token =
-            sessionManager.fetchAuthToken()
-                ?: return
-
-        val user =
-            currentUser ?: return
-
-        // Séparer prénom / nom
-        val nameParts =
-            fullName.split(" ", limit = 2)
-
-        val firstName =
-            nameParts.getOrNull(0) ?: ""
-
-        val lastName =
-            nameParts.getOrNull(1) ?: ""
-
-        val updatedUser =
-            UserResponse(
-                id = user.id,
-                email = user.email,
-                username = user.username,
-                firstName = firstName,
-                lastName = lastName,
-                bio = bio,
-                role = status,
-                avatarUrl = user.avatarUrl,
-                classe = user.classe
-            )
+        val token = sessionManager.fetchAuthToken() ?: return
 
         lifecycleScope.launch {
-
             try {
+                val response = RetrofitClient.instance.getMe("Bearer $token")
+                if (response.isSuccessful && response.body() != null) {
+                    val user = response.body()!!.user
+                    currentUser = user
 
-                val response =
-                    RetrofitClient
-                        .instance
-                        .updateMe(
-                            "Bearer $token",
-                            updatedUser
-                        )
-
-                if (response.isSuccessful) {
-
-                    Toast.makeText(
-                        this@EditProfileActivity,
-                        "Profil mis à jour !",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    finish()
-
-                } else {
-
-                    Toast.makeText(
-                        this@EditProfileActivity,
-                        "Erreur lors de la sauvegarde",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
+                    etFName.setText(user.firstName ?: "")
+                    etLName.setText(user.lastName ?: "")
+                    etBio.setText(user.bio ?: "")
+                    etClasse.setText(user.classe ?: "")
+                    
+                    val initialsSource = user.firstName?.ifEmpty { user.username } ?: "U"
+                    tvInit.text = initialsSource.take(1).uppercase()
                 }
-
             } catch (e: Exception) {
+                Log.e("EDIT_PROFILE", "Load error", e)
+            }
+        }
+    }
 
-                Toast.makeText(
-                    this@EditProfileActivity,
-                    "Erreur réseau",
-                    Toast.LENGTH_SHORT
-                ).show()
+    private fun updateProfile(fName: String, lName: String, bio: String, classe: String) {
+        val token = sessionManager.fetchAuthToken() ?: return
+        val user = currentUser ?: return
 
+        val updatedUser = UserResponse(
+            id = user.id,
+            email = user.email,
+            username = user.username,
+            firstName = fName,
+            lastName = lName,
+            bio = bio,
+            role = user.role, // On garde le rôle actuel, on ne permet pas de le changer ici
+            avatarUrl = user.avatarUrl,
+            classe = classe
+        )
+
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.instance.updateMe("Bearer $token", updatedUser)
+                if (response.isSuccessful) {
+                    Toast.makeText(this@EditProfileActivity, "Profil mis à jour !", Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    Toast.makeText(this@EditProfileActivity, "Erreur lors de la sauvegarde", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this@EditProfileActivity, "Erreur réseau", Toast.LENGTH_SHORT).show()
             }
         }
     }

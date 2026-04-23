@@ -56,6 +56,11 @@ class MainActivity : AppCompatActivity() {
                         sessionManager.saveAuthToken(loginResponse.token)
                         loginResponse.user.id?.let { sessionManager.saveUserId(it) }
                         
+                        // Sauvegarde du rôle dès la connexion pour être sûr
+                        val role = loginResponse.user.role ?: "eleve"
+                        sessionManager.saveUserRole(role)
+                        Log.d("LOGIN_DEBUG", "Role saved: $role")
+                        
                         val intent = Intent(this@MainActivity, DashboardActivity::class.java)
                         intent.putExtra("USER_EMAIL", email)
                         startActivity(intent)
@@ -64,6 +69,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this@MainActivity, "Identifiants incorrects", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: Exception) {
+                    Log.e("LOGIN_DEBUG", "Error", e)
                     Toast.makeText(this@MainActivity, "Erreur de connexion au serveur", Toast.LENGTH_LONG).show()
                 }
             }

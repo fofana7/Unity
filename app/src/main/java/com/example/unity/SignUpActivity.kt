@@ -46,7 +46,7 @@ class SignUpActivity : AppCompatActivity() {
         actRole.setAdapter(adapterRoles)
 
         // Configuration des classes
-        val classes = arrayOf("L1", "L2", "L3", "M1", "M2")
+        val classes = arrayOf("A1MSI", "A2MSI", "A3MSI")
         val adapterClasses = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, classes)
         actClasse.setAdapter(adapterClasses)
 
@@ -97,7 +97,7 @@ class SignUpActivity : AppCompatActivity() {
                         val response = RetrofitClient.instance.register(registerRequest)
 
                         if (response.isSuccessful) {
-                            Toast.makeText(this@SignUpActivity, "Inscription réussie !", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@SignUpActivity, "Inscription réussie ! En attente de validation par l'administration.", Toast.LENGTH_LONG).show()
                             finish()
                         } else {
                             val errorBody = response.errorBody()?.string() ?: "Erreur d'inscription"

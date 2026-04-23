@@ -18,6 +18,19 @@
         android:usesCleartextTraffic="true">
 
         <activity
+            android:name=".CreateEventActivity"
+            android:exported="false"
+            android:label="Créer un évènement" />
+        <activity
+            android:name=".EventsActivity"
+            android:exported="false"
+            android:label="Évènements" />
+        <activity
+            android:name=".ManageEventsActivity"
+            android:exported="false"
+            android:label="Gérer mes évènements" />
+
+        <activity
             android:name=".FriendsActivity"
             android:exported="false" />
             
@@ -47,6 +60,10 @@
         <activity
             android:name=".CreateGroupActivity"
             android:exported="false" />
+        <activity
+            android:name=".AddGroupMembersActivity"
+            android:exported="false"
+            android:label="Ajouter des membres" />
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />

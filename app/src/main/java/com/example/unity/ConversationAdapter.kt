@@ -6,16 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-enum class ConversationType { PRIVATE, GROUP }
-
-data class Conversation(
-    val id: Int,
-    val userName: String,
-    val lastMessage: String,
-    val time: String,
-    val type: ConversationType = ConversationType.PRIVATE
-)
-
 class ConversationAdapter(
     private var conversations: List<Conversation>,
     private val onConversationClick: (Conversation) -> Unit

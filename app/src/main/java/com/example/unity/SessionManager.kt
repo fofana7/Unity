@@ -4,11 +4,12 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class SessionManager(context: Context) {
-    private val prefs: SharedPreferences = context.getSharedPreferences("user_session", Context.MODE_PRIVATE)
+    private var prefs: SharedPreferences = context.getSharedPreferences("unity_prefs", Context.MODE_PRIVATE)
 
     companion object {
-        private const val USER_TOKEN = "user_token"
-        private const val USER_ID = "user_id"
+        const val USER_TOKEN = "user_token"
+        const val USER_ID = "user_id"
+        const val USER_ROLE = "user_role"
     }
 
     fun saveAuthToken(token: String) {
@@ -31,10 +32,29 @@ class SessionManager(context: Context) {
         return prefs.getInt(USER_ID, -1)
     }
 
+    fun saveUserRole(role: String) {
+        val editor = prefs.edit()
+        editor.putString(USER_ROLE, role)
+        editor.apply()
+    }
+
+    fun fetchUserRole(): String? {
+        return prefs.getString(USER_ROLE, null)
+    }
+
+    fun saveUserClasse(classe: String) {
+        val editor = prefs.edit()
+        editor.putString("user_classe", classe)
+        editor.apply()
+    }
+
+    fun fetchUserClasse(): String? {
+        return prefs.getString("user_classe", null)
+    }
+
     fun clearSession() {
         val editor = prefs.edit()
-        editor.remove(USER_TOKEN)
-        editor.remove(USER_ID)
+        editor.clear()
         editor.apply()
     }
 }

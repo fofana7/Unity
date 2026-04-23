@@ -10,7 +10,10 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
 
-class NotificationAdapter(private var notifications: List<NotificationItem>) :
+class NotificationAdapter(
+    private var notifications: List<NotificationItem>,
+    private val onItemClick: (NotificationItem) -> Unit
+) :
     RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {
 
     fun updateData(newNotifs: List<NotificationItem>) {
@@ -26,6 +29,7 @@ class NotificationAdapter(private var notifications: List<NotificationItem>) :
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
         val notif = notifications[position]
         holder.bind(notif)
+        holder.itemView.setOnClickListener { onItemClick(notif) }
     }
 
     override fun getItemCount(): Int = notifications.size
@@ -69,6 +73,10 @@ class NotificationAdapter(private var notifications: List<NotificationItem>) :
                 "announcement" -> {
                     tvContent.text = "Nouvelle annonce dans ${notif.className ?: "votre classe"}."
                     ivTypeIcon.setImageResource(android.R.drawable.ic_dialog_info)
+                }
+                "event_created", "evenement" -> {
+                    tvContent.text = notif.preview ?: "Nouvel évènement pour votre classe !"
+                    ivTypeIcon.setImageResource(android.R.drawable.ic_menu_today)
                 }
                 else -> {
                     tvContent.text = "Nouvelle notification de $name"

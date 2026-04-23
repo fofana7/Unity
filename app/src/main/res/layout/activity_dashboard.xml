@@ -129,6 +129,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvWelcomeSub"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -220,6 +221,70 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+                <!-- Events Section -->
+                <LinearLayout
+                    android:id="@+id/layoutEvents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        
+                        <TextView
+                            android:id="@+id/tvEventsTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Évènements à venir"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/btnManageEvents"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/tvEventsTitle"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="12dp"
+                            android:text="[GÉRER]"
+                            android:textColor="@color/unity_danger"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            android:background="@drawable/sidebar_card_bg"
+                            android:paddingHorizontal="6dp"
+                            android:paddingVertical="2dp"
+                            tools:visibility="visible"/>
+
+                        <TextView
+                            android:id="@+id/btnViewAllEvents"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:text="Voir tout"
+                            android:textColor="@color/unity_accent"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="4dp"/>
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvEvents"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_event_card" />
+                </LinearLayout>
+
                 <!-- Feed Section -->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -252,6 +317,18 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCreateEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_menu_today"
+        android:visibility="gone"
+        app:backgroundTint="@color/unity_accent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"

@@ -1,5 +1,6 @@
 package com.example.unity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -40,7 +41,9 @@ class NotificationsActivity : AppCompatActivity() {
 
         val rv = findViewById<RecyclerView>(R.id.rvNotifications)
         rv.layoutManager = LinearLayoutManager(this)
-        adapter = NotificationAdapter(notificationList)
+        adapter = NotificationAdapter(notificationList) { notif ->
+            handleNotificationClick(notif)
+        }
         rv.adapter = adapter
 
         val swipeRefresh = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
@@ -85,6 +88,13 @@ class NotificationsActivity : AppCompatActivity() {
             } finally {
                 swipeRefresh?.isRefreshing = false
             }
+        }
+    }
+
+    private fun handleNotificationClick(notif: NotificationItem) {
+        if (notif.type == "event_created" || notif.type == "evenement") {
+            val intent = Intent(this, EventsActivity::class.java)
+            startActivity(intent)
         }
     }
 }

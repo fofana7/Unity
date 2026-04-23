@@ -16,7 +16,14 @@ class SelectableFriendAdapter(
 
     fun updateData(newFriends: List<UserResponse>) {
         friends = newFriends
+        // On ne clear pas forcément les sélections ici si on veut les garder, 
+        // mais pour une mise à jour globale c'est plus propre.
+        notifyDataSetChanged()
+    }
+
+    fun setSelectedIds(ids: List<Int>) {
         selectedIds.clear()
+        selectedIds.addAll(ids)
         notifyDataSetChanged()
     }
 
@@ -44,23 +51,32 @@ class SelectableFriendAdapter(
             val firstName = user.firstName ?: ""
             val lastName = user.lastName ?: ""
             val fullName = "$firstName $lastName".trim().ifEmpty { username }
+            
+            // Affichage du nom avec la classe pour aider l'enseignant
+            val displayText = if (!user.classe.isNullOrEmpty()) "$fullName (${user.classe})" else fullName
 
-            tvName.text = fullName
+            tvName.text = displayText
             tvInitials.text = fullName.take(1).uppercase()
             
-            // Détacher le listener pour éviter des boucles lors du recyclage
-            cbSelect.setOnCheckedChangeListener(null)
+            // Désactiver le clic direct sur la checkbox pour que itemView gère tout
+            cbSelect.isClickable = false
+            cbSelect.isFocusable = false
             cbSelect.isChecked = isSelected
 
-            cbSelect.setOnCheckedChangeListener { _, isChecked ->
+            itemView.setOnClickListener {
                 user.id?.let { id ->
-                    if (isChecked) selectedIds.add(id) else selectedIds.remove(id)
+                    val currentlySelected = selectedIds.contains(id)
+                    val newState = !currentlySelected
+                    
+                    if (newState) {
+                        selectedIds.add(id)
+                    } else {
+                        selectedIds.remove(id)
+                    }
+                    
+                    cbSelect.isChecked = newState
                     onSelectionChange(selectedIds.toList())
                 }
-            }
-
-            itemView.setOnClickListener {
-                cbSelect.isChecked = !cbSelect.isChecked
             }
         }
     }

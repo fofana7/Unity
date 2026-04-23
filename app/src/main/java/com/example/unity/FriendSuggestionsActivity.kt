@@ -50,7 +50,7 @@ class FriendSuggestionsActivity : AppCompatActivity() {
         tvEmpty = findViewById(R.id.tvEmpty)
         rvSuggestions = findViewById(R.id.rvSuggestions)
 
-        adapter = FriendSuggestionsAdapter(emptyList()) { user -> addFriend(user) }
+        adapter = FriendSuggestionsAdapter(emptyList(), emptySet(), sessionManager.fetchUserId()) { user -> addFriend(user) }
         rvSuggestions.layoutManager = LinearLayoutManager(this)
         rvSuggestions.adapter = adapter
 
@@ -83,7 +83,7 @@ class FriendSuggestionsActivity : AppCompatActivity() {
     private fun filterAndDisplaySuggestions() {
         progressBar.visibility = View.GONE
         val friendIds = myFriends.mapNotNull { it.id }.toSet()
-        val currentUserId = currentUser?.id
+        val currentUserId = currentUser?.id ?: sessionManager.fetchUserId()
 
         val suggestions = allUsers.filter { it.id != null && it.id != currentUserId && !friendIds.contains(it.id) }
 
@@ -93,18 +93,17 @@ class FriendSuggestionsActivity : AppCompatActivity() {
         } else {
             tvEmpty.visibility = View.GONE
             rvSuggestions.visibility = View.VISIBLE
-            adapter.updateUsers(suggestions)
+            adapter.updateData(suggestions, friendIds)
         }
     }
 
     private fun addFriend(user: UserResponse) {
         val token = sessionManager.fetchAuthToken() ?: return
-        val myId = currentUser?.id ?: return
+        val myId = currentUser?.id ?: sessionManager.fetchUserId()
         
         lifecycleScope.launch {
             try {
-                // Utilisation correcte de FriendActionRequest au lieu d'une Map
-                val req = FriendActionRequest(friendId = user.id, requesterId = myId, status = "pending")
+                val req = FriendActionRequest(friendId = user.id ?: -1, requesterId = myId, status = "pending")
                 val response = RetrofitClient.instance.addFriend("Bearer $token", req)
                 
                 if (response.isSuccessful) {
