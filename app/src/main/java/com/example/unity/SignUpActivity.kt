@@ -40,15 +40,15 @@ class SignUpActivity : AppCompatActivity() {
         val btnSignUp = findViewById<Button>(R.id.btnSignUp)
         val tvLogin = findViewById<TextView>(R.id.tvLogin)
 
-        // Configuration des rôles
+        // Configuration des rôles avec layout personnalisé pour la visibilité
         val rolesDisplay = arrayOf("Étudiant", "Professeur", "Administrateur")
         val rolesTechnical = mapOf("Étudiant" to "eleve", "Professeur" to "enseignant", "Administrateur" to "personnel")
-        val adapterRoles = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, rolesDisplay)
+        val adapterRoles = ArrayAdapter(this, R.layout.item_dropdown_menu, rolesDisplay)
         actRole.setAdapter(adapterRoles)
 
-        // Configuration des classes
+        // Configuration des classes avec layout personnalisé
         val classes = arrayOf("A1MSI", "A2MSI", "A3MSI")
-        val adapterClasses = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, classes)
+        val adapterClasses = ArrayAdapter(this, R.layout.item_dropdown_menu, classes)
         actClasse.setAdapter(adapterClasses)
 
         // Affichage dynamique du champ Classe

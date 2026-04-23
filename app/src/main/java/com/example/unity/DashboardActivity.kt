@@ -10,13 +10,15 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -369,9 +371,23 @@ class DashboardActivity : AppCompatActivity() {
     private fun editPost(post: PostResponse) {
         val editText = EditText(this)
         editText.setText(post.content)
-        android.app.AlertDialog.Builder(this)
+        editText.setTextColor(getColor(R.color.white))
+        editText.setHintTextColor(getColor(R.color.unity_muted))
+        
+        // Ajouter des marges autour de l'EditText
+        val container = FrameLayout(this)
+        val params = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT
+        )
+        val margin = (20 * resources.displayMetrics.density).toInt()
+        params.setMargins(margin, margin / 2, margin, margin / 2)
+        editText.layoutParams = params
+        container.addView(editText)
+
+        AlertDialog.Builder(this)
             .setTitle("Modifier le post")
-            .setView(editText)
+            .setView(container)
             .setPositiveButton("Enregistrer") { _, _ ->
                 val newContent = editText.text.toString().trim()
                 if (newContent.isNotEmpty()) {

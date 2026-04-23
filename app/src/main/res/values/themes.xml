@@ -14,6 +14,24 @@
         <item name="colorSurfaceVariant">@color/unity_card</item>
         <item name="colorOnSurfaceVariant">@color/white</item>
         <item name="android:textColorPrimary">@color/white</item>
+
+        <!-- For PopupMenus and context menus -->
+        <item name="android:panelBackground">@color/unity_card</item>
+        <item name="android:panelColorForeground">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+
+        <!-- Background of Popup Windows -->
+        <item name="android:popupBackground">@color/unity_card</item>
+
+        <!-- FORCE PopupMenu Style -->
+        <item name="popupMenuStyle">@style/UnityPopupMenuStyle</item>
+        <item name="android:popupMenuStyle">@style/UnityPopupMenuStyle</item>
+    </style>
+
+    <style name="UnityPopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@color/unity_card</item>
+        <item name="android:itemBackground">@color/unity_card</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Theme.Unity" parent="Base.Theme.Unity">
