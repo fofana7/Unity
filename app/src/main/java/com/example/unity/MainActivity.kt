@@ -83,5 +83,14 @@ class MainActivity : AppCompatActivity() {
         tvSignUp.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
+
+        val tvForgotPassword = findViewById<TextView>(R.id.tvForgotPassword)
+        tvForgotPassword.setOnClickListener {
+            androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("🔑 Mot de passe oublié ?")
+                .setMessage("Contactez votre administrateur pour réinitialiser votre mot de passe.\n\nIl vous communiquera un mot de passe temporaire du type : Unity1234\n\nVous pourrez le changer ensuite dans votre profil.")
+                .setPositiveButton("Compris") { dialog, _ -> dialog.dismiss() }
+                .show()
+        }
     }
 }
