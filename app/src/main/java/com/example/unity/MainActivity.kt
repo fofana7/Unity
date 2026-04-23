@@ -86,10 +86,37 @@ class MainActivity : AppCompatActivity() {
 
         val tvForgotPassword = findViewById<TextView>(R.id.tvForgotPassword)
         tvForgotPassword.setOnClickListener {
+            val input = android.widget.EditText(this)
+            input.hint = "Votre adresse email"
+            input.inputType = android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+            input.setPadding(48, 32, 48, 16)
+
             androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle("🔑 Mot de passe oublié ?")
-                .setMessage("Contactez votre administrateur pour réinitialiser votre mot de passe.\n\nIl vous communiquera un mot de passe temporaire du type : Unity1234\n\nVous pourrez le changer ensuite dans votre profil.")
-                .setPositiveButton("Compris") { dialog, _ -> dialog.dismiss() }
+                .setTitle("🔑 Mot de passe oublié")
+                .setMessage("Entrez votre email. L'administrateur recevra votre demande et vous communiquera un mot de passe temporaire.")
+                .setView(input)
+                .setPositiveButton("Envoyer la demande") { _, _ ->
+                    val email = input.text.toString().trim()
+                    if (email.isEmpty()) {
+                        Toast.makeText(this, "Veuillez entrer votre email", Toast.LENGTH_SHORT).show()
+                        return@setPositiveButton
+                    }
+                    lifecycleScope.launch {
+                        try {
+                            val response = RetrofitClient.instance.forgotPassword(mapOf("email" to email))
+                            if (response.isSuccessful) {
+                                Toast.makeText(this@MainActivity,
+                                    "✅ Demande envoyée ! L'admin vous contactera avec un mot de passe temporaire.",
+                                    Toast.LENGTH_LONG).show()
+                            } else {
+                                Toast.makeText(this@MainActivity, "Erreur lors de l'envoi", Toast.LENGTH_SHORT).show()
+                            }
+                        } catch (e: Exception) {
+                            Toast.makeText(this@MainActivity, "Erreur réseau", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                .setNegativeButton("Annuler", null)
                 .show()
         }
     }

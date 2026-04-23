@@ -12,6 +12,9 @@ interface ApiService {
     @POST("auth/login")
     suspend fun login(@Body body: LoginRequest): Response<LoginResponse>
 
+    @POST("auth/forgot-password")
+    suspend fun forgotPassword(@Body body: Map<String, String>): Response<Map<String, String>>
+
     @POST("auth/change-password")
     suspend fun changePassword(@Header("Authorization") token: String, @Body body: ChangePasswordRequest): Response<Void>
 
